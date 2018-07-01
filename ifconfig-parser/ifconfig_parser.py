@@ -20,6 +20,10 @@ class IfconfigParser(object):
 	              'rx_frame', 'tx_packets', 'tx_errors', 'tx_dropped', 'tx_overruns', 'tx_carrier', 'tx_collisions']
 
 	def __init__(self, console_output):
+		"""
+
+		:param console_output:
+		"""
 
 		if isinstance(console_output, list):
 			source_data = console_output
@@ -28,10 +32,18 @@ class IfconfigParser(object):
 		self.interfaces = self.parser(source_data=source_data)
 
 	def list_interfaces(self):
+		"""
+
+		:return:
+		"""
 		return sorted(self.interfaces.keys())
 
 	def filter_interfaces(self, **kwargs):
+		"""
 
+		:param kwargs:
+		:return:
+		"""
 		for attr in kwargs.keys():
 			if attr not in IfconfigParser.attributes:
 				raise ValueError("Attribute [{}] not supported.".format(attr))
@@ -45,16 +57,30 @@ class IfconfigParser(object):
 		return sorted(filtered_interfaces)
 
 	def get_interface(self, name):
+		"""
+
+		:param name:
+		:return:
+		"""
 		if name in self.list_interfaces():
 			return self.interfaces[name]
 		else:
 			raise InterfaceNotFound("Interface [{}] not found.".format(name))
 
 	def get_interfaces(self):
+		"""
+
+		:return:
+		"""
 		return self.interfaces
 
 	@staticmethod
 	def parser(source_data):
+		"""
+
+		:param source_data:
+		:return:
+		"""
 
 		# Linux syntax
 		re_linux_interface = re.compile(
@@ -149,4 +175,7 @@ class IfconfigParser(object):
 
 
 class InterfaceNotFound(Exception):
+	"""
+
+	"""
 	pass
