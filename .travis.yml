@@ -7,9 +7,9 @@ branches:
     - master
 env:
   global:
-    - PACKAGENAME="ifconfig-parser"
+    - PACKAGENAME="ifconfigparser"
 before_install:
-  - export PYTHONPATH=$PYTHONPATH:${pwd}:$(pwd)/ifconfig-parser:$(pwd)/ifconfig-parser/tests
+  - export PYTHONPATH=$PYTHONPATH:${pwd}:$(pwd)/ifconfigparser:$(pwd)/ifconfigparser/tests
 install:
   - pip install -r requirements.txt
 script:
