@@ -23,7 +23,7 @@ class TestIfconfigParser(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_001(self):
+    def test_linux_syntax_001(self):
 
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_1
         interfaces = IfconfigParser(console_output=console_output)
@@ -104,7 +104,7 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(interface.tx_carrier, '0')
         self.assertEqual(interface.tx_collisions, '0')
 
-    def test_002(self):
+    def test_linux_syntax_002(self):
 
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_2
         interfaces = IfconfigParser(console_output=console_output)
@@ -161,7 +161,7 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(interface.tx_carrier, '0')
         self.assertEqual(interface.tx_collisions, '0')
 
-    def test_003(self):
+    def test_linux_syntax_003(self):
 
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_3
         interfaces = IfconfigParser(console_output=console_output)
@@ -218,7 +218,7 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(interface.tx_carrier, '0')
         self.assertEqual(interface.tx_collisions, '0')
 
-    def test_004(self):
+    def test_linux_syntax_004(self):
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_4
         interfaces = IfconfigParser(console_output=console_output)
 
@@ -274,7 +274,7 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(interface.tx_carrier, '0')
         self.assertEqual(interface.tx_collisions, '0')
 
-    def test_005(self):
+    def test_linux_syntax_005(self):
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_5
         interfaces = IfconfigParser(console_output=console_output)
 
@@ -378,7 +378,7 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(interface.tx_carrier, '0')
         self.assertEqual(interface.tx_collisions, '0')
 
-    def test_006(self):
+    def test_linux_syntax_006(self):
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_6
         interfaces = IfconfigParser(console_output=console_output)
 
@@ -458,7 +458,7 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(interface.tx_carrier, '0')
         self.assertEqual(interface.tx_collisions, '0')
 
-    def test_007(self):
+    def test_linux_syntax_007(self):
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_7
         interfaces = IfconfigParser(console_output=console_output)
 
@@ -538,7 +538,7 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(interface.tx_carrier, '0')
         self.assertEqual(interface.tx_collisions, '0')
 
-    def test_008(self):
+    def test_linux_syntax_008(self):
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_8
         interfaces = IfconfigParser(console_output=console_output)
 
