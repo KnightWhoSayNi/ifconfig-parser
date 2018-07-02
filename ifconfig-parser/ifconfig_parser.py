@@ -174,7 +174,7 @@ class IfconfigParser(object):
                         _m = re.match(_regex, line)
                         if _m:
                             _details = _m.groupdict()
-                            _interface = {**_interface, **_details}
+                            _interface.update(_details)
                             continue
 
         return available_interfaces
