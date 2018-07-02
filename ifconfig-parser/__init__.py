@@ -9,11 +9,9 @@
 #    Python Version: 3.6
 #
 # ======================================================
-from ifconfig_parser import IfconfigParser
+from .ifconfig_parser import IfconfigParser
 
-__name__ = "ifconfigparser"
-__title__ = "ifconfig-parser"
-__version__ = '0.1.0'
-__author__ = 'ThreeHeadedKnight'
 
-__all__ = ['IfconfigParser']
+__author__ = "KnightWhoSayNi"
+__email__ = 'threeheadedknight@protonmail.com'
+__version__ = '0.0.1'
