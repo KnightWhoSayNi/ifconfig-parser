@@ -14,4 +14,4 @@ from .ifconfig_parser import IfconfigParser
 
 __author__ = "KnightWhoSayNi"
 __email__ = 'threeheadedknight@protonmail.com'
-__version__ = '0.0.3'
+__version__ = '0.0.4'
