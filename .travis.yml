@@ -1,7 +1,11 @@
 language: python
+sudo: false
 python:
-  - "3.6"
   - "2.7"
+  - "3.6"
+env:
+  global:
+    - PACKAGENAME="ifconfig-parser"
 before_install:
   - export PYTHONPATH=$PYTHONPATH:${pwd}:$(pwd)/ifconfig-parser:$(pwd)/tests
 install:
