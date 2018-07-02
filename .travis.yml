@@ -3,5 +3,6 @@ python:
   - "3.6"
 install:
   - pip install -r requirements.txt
+  - pip install -e .
 script:
-  - python -m unittest tests/unittest_ifconfig_parser
+  - python -m unittest unittest_ifconfig_parser.TestIfconfigParser
