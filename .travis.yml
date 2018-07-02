@@ -7,7 +7,7 @@ env:
   global:
     - PACKAGENAME="ifconfig-parser"
 before_install:
-  - export PYTHONPATH=$PYTHONPATH:${pwd}:$(pwd)/ifconfig-parser:$(pwd)/tests
+  - export PYTHONPATH=$PYTHONPATH:${pwd}:$(pwd)/ifconfig-parser:$(pwd)/ifconfig-parser/tests
 install:
   - pip install -r requirements.txt
 script:
