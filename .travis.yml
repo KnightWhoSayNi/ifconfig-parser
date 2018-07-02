@@ -2,10 +2,9 @@ language: python
 python:
   - "3.6"
   - "2.7"
+before_install:
+  - export PYTHONPATH=$PYTHONPATH:${pwd}:$(pwd)/ifconfig-parser:$(pwd)/tests
 install:
-  - export PYTHONPATH=$PYTHONPATH:$(pwd)/ifconfig-parser:$(pwd)/tests
   - pip install -r requirements.txt
 script:
-  - python -m unittest unittest_ifconfig_parser.TestIfconfigParser
-after_success:
-  coveralls
+  - python -m unittest -v unittest_ifconfig_parser.TestIfconfigParser
