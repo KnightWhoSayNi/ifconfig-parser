@@ -1,12 +1,12 @@
 from setuptools import setup
 
 setup(
-    name='ifconfig-parser',
+    name='ifconfigparser',
     url='https://github.com/KnightWhoSayNi/ifconfig-parser',
     author='KnightWhoSayNi',
     author_email='threeheadedknight@protonmail.com',
     packages=['ifconfig-parser'],
-    version='0.0.1',
+    version='0.0.3',
     license='MIT',
     description='ifconfig-parser',
     classifiers=(
