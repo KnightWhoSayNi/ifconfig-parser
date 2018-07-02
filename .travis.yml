@@ -3,6 +3,9 @@ sudo: false
 python:
   - "2.7"
   - "3.6"
+branches:
+  only:
+    - master
 env:
   global:
     - PACKAGENAME="ifconfig-parser"
