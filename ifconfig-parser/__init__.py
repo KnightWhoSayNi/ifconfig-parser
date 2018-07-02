@@ -9,7 +9,7 @@
 #    Python Version: 3.6
 #
 # ======================================================
-from ifconfig_parser import IfconfigParser
+from .ifconfig_parser import IfconfigParser
 
 __title__ = "ifconfig_parser"
 __version__ = '0.1.0'
