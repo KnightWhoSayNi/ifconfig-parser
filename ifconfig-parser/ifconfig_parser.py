@@ -114,13 +114,13 @@ class IfconfigParser(object):
             r"(?P<name>[a-zA-Z0-9:._-]+):\s+flags=(?P<flags>[0-9]+)<(?P<state>\S+)>\s+mtu\s+(?P<mtu>[0-9]+)",
             re.I)
         re_openbsd_ipv4 = re.compile(
-            r"inet (?P<ipv4_addr>(?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+netmask\s+(?P<ipv4_mask>(?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+broadcast\s+(?P<ipv4_bcast>(?:[0-9]{1,3}\.){3}[0-9]{1,3})",
+            r"inet (?P<ipv4_addr>(?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+netmask\s+(?P<ipv4_mask>(?:[0-9]{1,3}\.){3}[0-9]{1,3})(\s+broadcast\s+(?P<ipv4_bcast>(?:[0-9]{1,3}\.){3}[0-9]{1,3}))?",
             re.I)
         re_openbsd_ipv6 = re.compile(
-            r"inet6\s+(?P<ipv6_addr>\S+)\s+prefixlen\s+(?P<ipv6_mask>[0-9]+)\s+scopeid\s+[0-9]+x[0-9]+<(?P<ipv6_scope>link)>",
+            r"inet6\s+(?P<ipv6_addr>\S+)\s+prefixlen\s+(?P<ipv6_mask>[0-9]+)\s+scopeid\s+[0-9]+x[0-9]+<(?P<ipv6_scope>link|host)>",
             re.I)
         re_openbsd_details = re.compile(
-            r"\S+\s+(?P<mac_addr>[0-9A-Fa-f:?]+)\s+txqueuelen\s+[0-9]+\s+\((?P<type>\S+)\)", re.I)
+            r"\S+\s+(?:(?P<mac_addr>[0-9A-Fa-f:?]+)\s+)?txqueuelen\s+[0-9]+\s+\((?P<type>\S+\s?\S+)\)", re.I)
         re_openbsd_rx = re.compile(r"RX packets (?P<rx_packets>[0-9]+)\s+bytes.*", re.I)
         re_openbsd_rx_stats = re.compile(
             r"RX errors (?P<rx_errors>[0-9]+)\s+dropped\s+(?P<rx_dropped>[0-9]+)\s+overruns\s+(?P<rx_overruns>[0-9]+)\s+frame\s+(?P<rx_frame>[0-9]+)",
@@ -141,7 +141,6 @@ class IfconfigParser(object):
         _interface = None
         _regex_list = None
 
-        lines = len(source_data)
         for index, line in enumerate(source_data):
             line = line.strip()
             if not _interface_found:
@@ -158,8 +157,7 @@ class IfconfigParser(object):
                     _interface = m_openbsd.groupdict()
                     continue
             else:
-                if line == '' or index == (lines - 1):
-
+                if line == '':
                     for attr in IfconfigParser.attributes:
                         if attr not in _interface:
                             _interface[attr] = None
@@ -176,6 +174,13 @@ class IfconfigParser(object):
                             _details = _m.groupdict()
                             _interface.update(_details)
                             continue
+
+        if _interface_found:
+            for attr in IfconfigParser.attributes:
+                if attr not in _interface:
+                    _interface[attr] = None
+
+            available_interfaces[_interface['name']] = namedtuple('Interface', _interface.keys())(**_interface)
 
         return available_interfaces
 

@@ -228,3 +228,58 @@ wlan0     Link encap:Ethernet  HWaddr 68:a3:c4:2f:07:b0
           collisions:0 txqueuelen:1000 
           RX bytes:253320 (253.3 KB)  TX bytes:29623 (29.6 KB)
 """
+
+# https://forums.fedoraforum.org/showthread.php?305492-Understanding-ifconfig-command-s-output
+SAMPLE_OUTPUT_OPENBSD_SYNTAX_1 = """
+enp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 0.0.0.100  netmask 255.255.255.0  broadcast 0.0.0.0
+        inet6 aaaa::aaaa:aaaa:aaaa:aaaa  prefixlen 64  scopeid 0x20<link>
+        ether aa:aa:aa:aa:aa:aa  txqueuelen 1000  (Ethernet)
+        RX packets 64219  bytes 82340039 (78.5 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 37986  bytes 4117999 (3.9 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 12  bytes 1596 (1.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 12  bytes 1596 (1.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 0.0.0.0  netmask 255.255.255.0  broadcast 0.0.0.0.0
+        ether 11:11:11:11:11:11  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+"""
+
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=820212
+SAMPLE_OUTPUT_OPENBSD_SYNTAX_2 = """
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 96.126.108.191  netmask 255.255.255.0  broadcast 96.126.108.255
+        inet6 2600:3c03::f03c:91ff:fe70:989d  prefixlen 64  scopeid 0x0<global>
+        inet6 fe80::f03c:91ff:fe70:989d  prefixlen 64  scopeid 0x20<link>
+        ether f2:3c:91:70:98:9d  txqueuelen 1000  (Ethernet)
+        RX packets 8861190  bytes 4193527512 (3.9 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 8562901  bytes 3997697400 (3.7 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0:1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.135.145  netmask 255.255.128.0  broadcast 0.0.0.0
+        ether f2:3c:91:70:98:9d  txqueuelen 1000  (Ethernet)
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 2988597  bytes 2376311697 (2.2 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2988597  bytes 2376311697 (2.2 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+"""
