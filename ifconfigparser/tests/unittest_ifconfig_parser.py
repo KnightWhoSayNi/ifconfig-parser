@@ -778,6 +778,62 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(interface.tx_carrier, '0')
         self.assertEqual(interface.tx_collisions, '0')
 
+    def test_freebsd_syntax_001(self):
+        console_output = SAMPLE_OUTPUT_FREEBSD_SYNTAX_1
+        interfaces = IfconfigParser(console_output=console_output)
+
+        self.assertEqual(interfaces.count_interfaces(), 2)
+
+        interface_list = interfaces.list_interfaces()
+        self.assertIn('em0', interface_list)
+        self.assertIn('em1', interface_list)
+
+    def test_freebsd_syntax_002(self):
+        console_output = SAMPLE_OUTPUT_FREEBSD_SYNTAX_2
+        interfaces = IfconfigParser(console_output=console_output)
+
+        self.assertEqual(interfaces.count_interfaces(), 4)
+
+        interface_list = interfaces.list_interfaces()
+        self.assertIn('re0', interface_list)
+        self.assertIn('re1', interface_list)
+        self.assertIn('lo0', interface_list)
+        self.assertIn('lo1', interface_list)
+
+    def test_freebsd_syntax_003(self):
+        console_output = SAMPLE_OUTPUT_FREEBSD_SYNTAX_3
+        interfaces = IfconfigParser(console_output=console_output)
+
+        self.assertEqual(interfaces.count_interfaces(), 3)
+
+        interface_list = interfaces.list_interfaces()
+        self.assertIn('dc0', interface_list)
+        self.assertIn('dc1', interface_list)
+        self.assertIn('lo0', interface_list)
+
+        _name = 'lo0'
+        interface = interfaces.get_interface(name=_name)
+        self.assertEqual(interface.type, None)
+        self.assertEqual(interface.mac_addr, None)
+        self.assertEqual(interface.ipv4_addr, '127.0.0.1')
+        self.assertEqual(interface.ipv4_bcast, None)
+        self.assertEqual(interface.ipv4_mask, '0xff000000')
+        self.assertEqual(interface.ipv6_addr, '::1')
+        self.assertEqual(interface.ipv6_mask, '128')
+        self.assertEqual(interface.ipv6_scope, None)
+        self.assertEqual(interface.mtu, '16384')
+        self.assertEqual(interface.rx_packets, None)
+        self.assertEqual(interface.rx_errors, None)
+        self.assertEqual(interface.rx_dropped, None)
+        self.assertEqual(interface.rx_overruns, None)
+        self.assertEqual(interface.rx_frame, None)
+        self.assertEqual(interface.tx_packets, None)
+        self.assertEqual(interface.tx_errors, None)
+        self.assertEqual(interface.tx_dropped, None)
+        self.assertEqual(interface.tx_overruns, None)
+        self.assertEqual(interface.tx_carrier, None)
+        self.assertEqual(interface.tx_collisions, None)
+
 
 if __name__ == '__main__':
     unittest.main()

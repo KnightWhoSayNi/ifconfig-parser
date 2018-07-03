@@ -283,3 +283,62 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         TX packets 2988597  bytes 2376311697 (2.2 GiB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 """
+
+# https://www.freebsd.org/doc/en_US.ISO8859-1/articles/linux-users/network.html
+SAMPLE_OUTPUT_FREEBSD_SYNTAX_1 = """
+em0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+        options=b<RXCSUM,TXCSUM,VLAN_MTU>
+        inet 10.10.10.100 netmask 0xffffff00 broadcast 10.10.10.255
+        ether 00:50:56:a7:70:b2
+        media: Ethernet autoselect (1000baseTX <full-duplex>)
+        status: active
+em1: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+        options=b<RXCSUM,TXCSUM,VLAN_MTU>
+        inet 192.168.10.222 netmask 0xffffff00 broadcast 192.168.10.255
+        ether 00:50:56:a7:03:2b
+        media: Ethernet autoselect (1000baseTX <full-duplex>)
+        status: active
+"""
+
+# https://forums.freebsd.org/threads/loopback-ifconfig-output-different-in-jail.49843/
+SAMPLE_OUTPUT_FREEBSD_SYNTAX_2 = """
+re0: flags=8802<BROADCAST,SIMPLEX,MULTICAST> metric 0 mtu 1500
+  options=8209b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,WOL_MAGIC,LINKSTATE>
+  ether b8:97:5a:23:26:32
+  media: Ethernet autoselect (none)
+  status: no carrier
+re1: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+  options=8209b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,WOL_MAGIC,LINKSTATE>
+  ether 00:14:d1:2b:9c:b5
+  inet 192.168.0.104 netmask 0xffffffff broadcast 192.168.0.104
+  media: Ethernet autoselect (1000baseT <full-duplex>)
+  status: active
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> metric 0 mtu 16384
+  options=600003<RXCSUM,TXCSUM,RXCSUM_IPV6,TXCSUM_IPV6>
+  inet 127.0.0.1 netmask 0xff000000
+lo1: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> metric 0 mtu 16384
+  options=600003<RXCSUM,TXCSUM,RXCSUM_IPV6,TXCSUM_IPV6>
+  inet 127.0.0.1 netmask 0xffffffff
+"""
+
+# https://www.freebsd.org/doc/handbook/config-network-setup.html
+SAMPLE_OUTPUT_FREEBSD_SYNTAX_3 = """
+dc0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+        options=80008<VLAN_MTU,LINKSTATE>
+        ether 00:a0:cc:da:da:da
+        inet 192.168.1.3 netmask 0xffffff00 broadcast 192.168.1.255
+        media: Ethernet autoselect (100baseTX <full-duplex>)
+        status: active
+dc1: flags=8802<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+        options=80008<VLAN_MTU,LINKSTATE>
+        ether 00:a0:cc:da:da:db
+        inet 10.0.0.1 netmask 0xffffff00 broadcast 10.0.0.255
+        media: Ethernet 10baseT/UTP
+        status: no carrier
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> metric 0 mtu 16384
+        options=3<RXCSUM,TXCSUM>
+        inet6 fe80::1%lo0 prefixlen 64 scopeid 0x4
+        inet6 ::1 prefixlen 128
+        inet 127.0.0.1 netmask 0xff000000
+        nd6 options=3<PERFORMNUD,ACCEPT_RTADV>
+"""

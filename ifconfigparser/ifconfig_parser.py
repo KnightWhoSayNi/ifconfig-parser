@@ -80,8 +80,7 @@ class IfconfigParser(object):
 		"""
         return self.interfaces
 
-    @staticmethod
-    def parser(source_data):
+    def parser(self, source_data):
         """
 
 		:param source_data:
@@ -133,7 +132,11 @@ class IfconfigParser(object):
                       re_openbsd_rx_stats, re_openbsd_tx, re_openbsd_tx_stats]
 
         # FreeBSD syntax
-        # TODO: Add regular expressions
+        # TODO: cover all interface attributes
+        re_freebsd_interface = re.compile(r"(?P<name>[a-zA-Z0-9:._-]+):\s+flags=(?P<flags>[0-9]+)<(?P<state>\S+)>\s+metric\s+(?P<metric>[0-9]+)\s+mtu\s+(?P<mtu>[0-9]+)", re.I)
+        re_freebsd_ipv4 = re.compile(r"inet (?P<ipv4_addr>(?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+netmask\s+(?P<ipv4_mask>0x\S+)(\s+broadcast\s+(?P<ipv4_bcast>(?:[0-9]{1,3}\.){3}[0-9]{1,3}))?", re.I)
+        re_freebsd_details = re.compile(r"ether\s+(?P<mac_addr>[0-9A-Fa-f:?]+)", re.I)
+        re_freebsd = [re_freebsd_interface, re_freebsd_ipv4, re_freebsd_details]
 
         available_interfaces = dict()
 
@@ -143,26 +146,30 @@ class IfconfigParser(object):
 
         for index, line in enumerate(source_data):
             line = line.strip()
-            if not _interface_found:
-                m_linux = re.match(re_linux_interface, line)
-                if m_linux:
-                    _interface_found = True
-                    _regex_list = re_linux
-                    _interface = m_linux.groupdict()
-                    continue
-                m_openbsd = re.match(re_openbsd_interface, line)
-                if m_openbsd:
-                    _interface_found = True
-                    _regex_list = re_openbsd
-                    _interface = m_openbsd.groupdict()
-                    continue
-            else:
+            m_linux = re.match(re_linux_interface, line)
+            if m_linux:
+                _interface_found = True
+                _regex_list = re_linux
+                _interface = m_linux.groupdict()
+                continue
+            m_openbsd = re.match(re_openbsd_interface, line)
+            if m_openbsd:
+                if _interface_found:
+                    available_interfaces[_interface['name']] = self.update_interface_details(_interface)
+                _interface_found = True
+                _regex_list = re_openbsd
+                _interface = m_openbsd.groupdict()
+                continue
+            m_freebsd = re.match(re_freebsd_interface, line)
+            if m_freebsd:
+                if _interface_found:
+                    available_interfaces[_interface['name']] = self.update_interface_details(_interface)
+                _interface_found = True
+                _regex_list = re_freebsd
+                _interface = m_freebsd.groupdict()
+            if _interface_found:
                 if line == '':
-                    for attr in IfconfigParser.attributes:
-                        if attr not in _interface:
-                            _interface[attr] = None
-
-                    available_interfaces[_interface['name']] = namedtuple('Interface', _interface.keys())(**_interface)
+                    available_interfaces[_interface['name']] = self.update_interface_details(_interface)
 
                     _interface_found = False
                     _regex_list = None
@@ -176,13 +183,16 @@ class IfconfigParser(object):
                             continue
 
         if _interface_found:
-            for attr in IfconfigParser.attributes:
-                if attr not in _interface:
-                    _interface[attr] = None
-
-            available_interfaces[_interface['name']] = namedtuple('Interface', _interface.keys())(**_interface)
+            available_interfaces[_interface['name']] = self.update_interface_details(_interface)
 
         return available_interfaces
+
+    @staticmethod
+    def update_interface_details(interface):
+        for attr in IfconfigParser.attributes:
+            if attr not in interface:
+                interface[attr] = None
+        return namedtuple('Interface', interface.keys())(**interface)
 
 
 class InterfaceNotFound(Exception):
