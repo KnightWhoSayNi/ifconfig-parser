@@ -1,12 +1,12 @@
 # ifconfig-parser
 
-[![Build Status](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser.svg?branch=master)](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/KnightWhoSayNi/ifconfig-parser/blob/master/LICENSE) [![Downloads](https://pepy.tech/badge/ifconfig-parser)](https://pepy.tech/project/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser/week)](https://pepy.tech/project/ifconfig-parser/week)
+[![Build Status](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser.svg?branch=master)](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/KnightWhoSayNi/ifconfig-parser/blob/master/LICENSE) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ifconfig-parser) ![PyPI](https://img.shields.io/pypi/v/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser)](https://pepy.tech/project/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser/month)](https://pepy.tech/project/ifconfig-parser/month) [![Downloads](https://pepy.tech/badge/ifconfig-parser/week)](https://pepy.tech/project/ifconfig-parser/week) 
 
 Unsophisticated python package for parsing raw output of [ifconfig](https://en.wikipedia.org/wiki/Ifconfig). It supports Linux, OpenBSD and FreeBSD syntax.  
 
 ## Getting Started
 
-Install **ifconfig-parser** using [pypi](https://pypi.org/project/ifconfig-parser/)
+Install **ifconfig-parser** from [pypi](https://pypi.org/project/ifconfig-parser/)
 
 ```shell
 pip install ifconfig-parser
