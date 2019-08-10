@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser.svg?branch=master)](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/KnightWhoSayNi/ifconfig-parser/blob/master/LICENSE) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ifconfig-parser) ![PyPI](https://img.shields.io/pypi/v/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser)](https://pepy.tech/project/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser/month)](https://pepy.tech/project/ifconfig-parser/month) [![Downloads](https://pepy.tech/badge/ifconfig-parser/week)](https://pepy.tech/project/ifconfig-parser/week) 
 
-Unsophisticated python package for parsing raw output of [ifconfig](https://en.wikipedia.org/wiki/Ifconfig). It supports Linux, OpenBSD and FreeBSD syntax.  
+Unsophisticated python package for parsing raw output of [ifconfig](https://en.wikipedia.org/wiki/Ifconfig). 
 
 ## Getting Started
 
@@ -48,19 +48,32 @@ Initialization
 >>> from ifconfigparser import IfconfigParser
 >>> 
 >>> console_output = """
-... em0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
-...         options=b<RXCSUM,TXCSUM,VLAN_MTU>
-...         inet 10.10.10.100 netmask 0xffffff00 broadcast 10.10.10.255
-...         ether 00:50:56:a7:70:b2
-...         media: Ethernet autoselect (1000baseTX <full-duplex>)
-...         status: active
-... em1: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
-...         options=b<RXCSUM,TXCSUM,VLAN_MTU>
-...         inet 192.168.10.222 netmask 0xffffff00 broadcast 192.168.10.255
-...         ether 00:50:56:a7:03:2b
-...         media: Ethernet autoselect (1000baseTX <full-duplex>)
-...         status: active
-... """
+enp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 0.0.0.100  netmask 255.255.255.0  broadcast 0.0.0.0
+        inet6 aaaa::aaaa:aaaa:aaaa:aaaa  prefixlen 64  scopeid 0x20<link>
+        ether aa:aa:aa:aa:aa:aa  txqueuelen 1000  (Ethernet)
+        RX packets 64219  bytes 82340039 (78.5 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 37986  bytes 4117999 (3.9 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 12  bytes 1596 (1.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 12  bytes 1596 (1.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 0.0.0.0  netmask 255.255.255.0  broadcast 0.0.0.0.0
+        ether 11:11:11:11:11:11  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+"""
 >>> interfaces = IfconfigParser(console_output=console_output)
 ```
 
@@ -69,7 +82,7 @@ Initialization
 List names of all available network interfaces
 ```python
 >>> interfaces.list_interfaces()
-['em0', 'em1']
+['enp2s0', 'lo', 'virbr0']
 ```
 
 #### count_interfaces()
@@ -77,7 +90,7 @@ List names of all available network interfaces
 List number of all available network interfaces
 ```python
 >>> interfaces.count_interfaces()
-2
+3
 ```
 
 #### get_interfaces()
@@ -85,15 +98,15 @@ List number of all available network interfaces
 List details of all available network interfaces
 ```python
 >>> interfaces.get_interfaces()
-{'em0': Interface(name='em0', flags='8843', state='UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST', mtu='1500', type=None, mac_addr=None, ipv4_addr=None, ipv4_bcast=None, ipv4_mask=None, ipv6_addr=None, ipv6_mask=None, ipv6_scope=None, metric=None, rx_packets=None, rx_errors=None, rx_dropped=None, rx_overruns=None, rx_frame=None, tx_packets=None, tx_errors=None, tx_dropped=None, tx_overruns=None, tx_carrier=None, tx_collisions=None), 'em1': Interface(name='em1', flags='8843', state='UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST', mtu='1500', type=None, mac_addr=None, ipv4_addr=None, ipv4_bcast=None, ipv4_mask=None, ipv6_addr=None, ipv6_mask=None, ipv6_scope=None, metric=None, rx_packets=None, rx_errors=None, rx_dropped=None, rx_overruns=None, rx_frame=None, tx_packets=None, tx_errors=None, tx_dropped=None, tx_overruns=None, tx_carrier=None, tx_collisions=None)}
+{'enp2s0': Interface(name='enp2s0', flags='4163', state='UP,BROADCAST,RUNNING,MULTICAST', mtu='1500', ipv4_addr='0.0.0.100', ipv4_mask='255.255.255.0', ipv4_bcast='0.0.0.0', ipv6_addr='aaaa::aaaa:aaaa:aaaa:aaaa', ipv6_mask='64', ipv6_scope='link', mac_addr='aa:aa:aa:aa:aa:aa', type='Ethernet', rx_packets='64219', rx_errors='0', rx_dropped='0', rx_overruns='0', rx_frame='0', tx_packets='37986', tx_errors='0', tx_dropped='0', tx_overruns='0', tx_carrier='0', tx_collisions='0', metric=None), 'lo': Interface(name='lo', flags='73', state='UP,LOOPBACK,RUNNING', mtu='65536', ipv4_addr='127.0.0.1', ipv4_mask='255.0.0.0', ipv4_bcast=None, ipv6_addr='::1', ipv6_mask='128', ipv6_scope='host', mac_addr=None, type='Local Loopback', rx_packets='12', rx_errors='0', rx_dropped='0', rx_overruns='0', rx_frame='0', tx_packets='12', tx_errors='0', tx_dropped='0', tx_overruns='0', tx_carrier='0', tx_collisions='0', metric=None), 'virbr0': Interface(name='virbr0', flags='4099', state='UP,BROADCAST,MULTICAST', mtu='1500', ipv4_addr='0.0.0.0', ipv4_mask='255.255.255.0', ipv4_bcast='0.0.0.0', mac_addr='11:11:11:11:11:11', type='Ethernet', rx_packets='0', rx_errors='0', rx_dropped='0', rx_overruns='0', rx_frame='0', tx_packets='0', tx_errors='0', tx_dropped='0', tx_overruns='0', tx_carrier='0', tx_collisions='0', ipv6_addr=None, ipv6_mask=None, ipv6_scope=None, metric=None)}
 ```
 
 #### get_interface()
 
 List details of a particular network interface
 ```python
->>> interfaces.get_interface(name="em0")
-Interface(name='em0', flags='8843', state='UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST', mtu='1500', type=None, mac_addr=None, ipv4_addr=None, ipv4_bcast=None, ipv4_mask=None, ipv6_addr=None, ipv6_mask=None, ipv6_scope=None, metric=None, rx_packets=None, rx_errors=None, rx_dropped=None, rx_overruns=None, rx_frame=None, tx_packets=None, tx_errors=None, tx_dropped=None, tx_overruns=None, tx_carrier=None, tx_collisions=None)
+>>> interfaces.get_interface(name="lo")
+Interface(name='lo', flags='73', state='UP,LOOPBACK,RUNNING', mtu='65536', ipv4_addr='127.0.0.1', ipv4_mask='255.0.0.0', ipv4_bcast=None, ipv6_addr='::1', ipv6_mask='128', ipv6_scope='host', mac_addr=None, type='Local Loopback', rx_packets='12', rx_errors='0', rx_dropped='0', rx_overruns='0', rx_frame='0', tx_packets='12', tx_errors='0', tx_dropped='0', tx_overruns='0', tx_carrier='0', tx_collisions='0', metric=None)
 ```
 
 #### filter_interfaces()
@@ -101,18 +114,18 @@ Interface(name='em0', flags='8843', state='UP,BROADCAST,RUNNING,SIMPLEX,MULTICAS
 Filter network interfaces by attribute(s)
 ```python
 >>> interfaces.filter_interfaces(mtu='1500')
-['em0', 'em1']
->>> interfaces.filter_interfaces(mtu='1500', name='em1')
-['em1']
+['enp2s0', 'virbr0']
+>>> interfaces.filter_interfaces(mtu='1500', name='enp2s0')
+['enp2s0']
 ```
 
 #### Exceptions 
 
 Raise **InterfaceNotFound** in case of missing interface
 ```python
->>> interfaces.get_interface(name="lo")
+>>> interfaces.get_interface(name="eth0")
     raise InterfaceNotFound("Interface [{}] not found.".format(name))
-ifconfigparser.ifconfig_parser.InterfaceNotFound: Interface [lo] not found.
+ifconfigparser.ifconfig_parser.InterfaceNotFound: Interface [eth0] not found.
 ```
 
 

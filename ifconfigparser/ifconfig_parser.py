@@ -20,9 +20,8 @@ class IfconfigParser(object):
 
     def __init__(self, console_output):
         """
-
-		:param console_output:
-		"""
+        :param console_output:
+        """
 
         if isinstance(console_output, list):
             source_data = console_output
@@ -33,8 +32,8 @@ class IfconfigParser(object):
     def list_interfaces(self):
         """
 
-		:return:
-		"""
+        :return:
+        """
         return sorted(self.interfaces.keys())
 
     def count_interfaces(self):
@@ -47,9 +46,9 @@ class IfconfigParser(object):
     def filter_interfaces(self, **kwargs):
         """
 
-		:param kwargs:
-		:return:
-		"""
+        :param kwargs:
+        :return:
+        """
         for attr in kwargs.keys():
             if attr not in IfconfigParser.attributes:
                 raise ValueError("Attribute [{}] not supported.".format(attr))
@@ -65,9 +64,9 @@ class IfconfigParser(object):
     def get_interface(self, name):
         """
 
-		:param name:
-		:return:
-		"""
+        :param name:
+        :return:
+        """
         if name in self.list_interfaces():
             return self.interfaces[name]
         else:
@@ -76,16 +75,16 @@ class IfconfigParser(object):
     def get_interfaces(self):
         """
 
-		:return:
-		"""
+        :return:
+        """
         return self.interfaces
 
     def parser(self, source_data):
         """
 
-		:param source_data:
-		:return:
-		"""
+        :param source_data:
+        :return:
+        """
 
         # Linux syntax
         re_linux_interface = re.compile(
@@ -133,8 +132,12 @@ class IfconfigParser(object):
 
         # FreeBSD syntax
         # TODO: cover all interface attributes
-        re_freebsd_interface = re.compile(r"(?P<name>[a-zA-Z0-9:._-]+):\s+flags=(?P<flags>[0-9]+)<(?P<state>\S+)>\s+metric\s+(?P<metric>[0-9]+)\s+mtu\s+(?P<mtu>[0-9]+)", re.I)
-        re_freebsd_ipv4 = re.compile(r"inet (?P<ipv4_addr>(?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+netmask\s+(?P<ipv4_mask>0x\S+)(\s+broadcast\s+(?P<ipv4_bcast>(?:[0-9]{1,3}\.){3}[0-9]{1,3}))?", re.I)
+        re_freebsd_interface = re.compile(
+            r"(?P<name>[a-zA-Z0-9:._-]+):\s+flags=(?P<flags>[0-9]+)<(?P<state>\S+)>\s+metric\s+(?P<metric>[0-9]+)\s+mtu\s+(?P<mtu>[0-9]+)",
+            re.I)
+        re_freebsd_ipv4 = re.compile(
+            r"inet (?P<ipv4_addr>(?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+netmask\s+(?P<ipv4_mask>0x\S+)(\s+broadcast\s+(?P<ipv4_bcast>(?:[0-9]{1,3}\.){3}[0-9]{1,3}))?",
+            re.I)
         re_freebsd_details = re.compile(r"ether\s+(?P<mac_addr>[0-9A-Fa-f:?]+)", re.I)
         re_freebsd = [re_freebsd_interface, re_freebsd_ipv4, re_freebsd_details]
 
@@ -167,6 +170,7 @@ class IfconfigParser(object):
                 _interface_found = True
                 _regex_list = re_freebsd
                 _interface = m_freebsd.groupdict()
+                continue
             if _interface_found:
                 if line == '':
                     available_interfaces[_interface['name']] = self.update_interface_details(_interface)
@@ -197,6 +201,5 @@ class IfconfigParser(object):
 
 class InterfaceNotFound(Exception):
     """
-
-	"""
+    """
     pass
