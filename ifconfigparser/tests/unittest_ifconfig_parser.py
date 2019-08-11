@@ -12,7 +12,7 @@
 import unittest
 
 from ifconfig_parser import IfconfigParser
-from tests.test_console_outputs import *
+from test_console_outputs import *
 
 
 class TestIfconfigParser(unittest.TestCase):
@@ -28,7 +28,7 @@ class TestIfconfigParser(unittest.TestCase):
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_1
         interfaces = IfconfigParser(console_output=console_output)
 
-        self.assertEqual(interfaces.count_interfaces(), 3)
+        self.assertEqual(3, interfaces.count_interfaces())
 
         interface_list = interfaces.list_interfaces()
         self.assertIn('eth0', interface_list)
@@ -37,26 +37,26 @@ class TestIfconfigParser(unittest.TestCase):
 
         _name = 'eth0'
         interface = interfaces.get_interface(name=_name)
-        self.assertEqual(interface.type, 'Ethernet')
-        self.assertEqual(interface.mac_addr, '09:00:12:90:e3:e5')
-        self.assertEqual(interface.ipv4_addr, '192.168.1.29')
-        self.assertEqual(interface.ipv4_bcast, '192.168.1.255')
-        self.assertEqual(interface.ipv4_mask, '255.255.255.0')
-        self.assertEqual(interface.ipv6_addr, 'fe80::a00:27ff:fe70:e3f5')
-        self.assertEqual(interface.ipv6_mask, '64')
-        self.assertEqual(interface.ipv6_scope, 'Link')
-        self.assertEqual(interface.mtu, '1500')
-        self.assertEqual(interface.rx_packets, '54071')
-        self.assertEqual(interface.rx_errors, '1')
-        self.assertEqual(interface.rx_dropped, '0')
-        self.assertEqual(interface.rx_overruns, '0')
-        self.assertEqual(interface.rx_frame, '0')
-        self.assertEqual(interface.tx_packets, '48515')
-        self.assertEqual(interface.tx_errors, '0')
-        self.assertEqual(interface.tx_dropped, '0')
-        self.assertEqual(interface.tx_overruns, '0')
-        self.assertEqual(interface.tx_carrier, '0')
-        self.assertEqual(interface.tx_collisions, '0')
+        self.assertEqual('Ethernet', interface.type)
+        self.assertEqual('09:00:12:90:e3:e5', interface.mac_addr)
+        self.assertEqual('192.168.1.29', interface.ipv4_addr)
+        self.assertEqual('192.168.1.255', interface.ipv4_bcast)
+        self.assertEqual('255.255.255.0', interface.ipv4_mask)
+        self.assertEqual('fe80::a00:27ff:fe70:e3f5', interface.ipv6_addr)
+        self.assertEqual('64', interface.ipv6_mask)
+        self.assertEqual('Link', interface.ipv6_scope)
+        self.assertEqual('1500', interface.mtu)
+        self.assertEqual('54071', interface.rx_packets)
+        self.assertEqual('1', interface.rx_errors)
+        self.assertEqual('0', interface.rx_dropped)
+        self.assertEqual('0', interface.rx_overruns)
+        self.assertEqual('0', interface.rx_frame)
+        self.assertEqual('48515', interface.tx_packets)
+        self.assertEqual('0', interface.tx_errors)
+        self.assertEqual('0', interface.tx_dropped)
+        self.assertEqual('0', interface.tx_overruns)
+        self.assertEqual('0', interface.tx_carrier)
+        self.assertEqual('0', interface.tx_collisions)
 
         _name = 'lo'
         interface = interfaces.get_interface(name=_name)
@@ -788,6 +788,11 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertIn('em0', interface_list)
         self.assertIn('em1', interface_list)
 
+        _name = 'em0'
+        interface = interfaces.get_interface(name=_name)
+        self.assertEqual(_name, interface.name)
+        self.assertEqual('10.10.10.100', interface.ipv4_addr)
+
     def test_freebsd_syntax_002(self):
         console_output = SAMPLE_OUTPUT_FREEBSD_SYNTAX_2
         interfaces = IfconfigParser(console_output=console_output)
@@ -811,28 +816,47 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertIn('dc1', interface_list)
         self.assertIn('lo0', interface_list)
 
-        _name = 'lo0'
+        _name = 'dc0'
+        self.assertTrue(interfaces.is_available(name=_name))
         interface = interfaces.get_interface(name=_name)
-        self.assertEqual(interface.type, None)
-        self.assertEqual(interface.mac_addr, None)
-        self.assertEqual(interface.ipv4_addr, '127.0.0.1')
-        self.assertEqual(interface.ipv4_bcast, None)
-        self.assertEqual(interface.ipv4_mask, '0xff000000')
-        self.assertEqual(interface.ipv6_addr, None)
-        self.assertEqual(interface.ipv6_mask, None)
-        self.assertEqual(interface.ipv6_scope, None)
-        self.assertEqual(interface.mtu, '16384')
-        self.assertEqual(interface.rx_packets, None)
-        self.assertEqual(interface.rx_errors, None)
-        self.assertEqual(interface.rx_dropped, None)
-        self.assertEqual(interface.rx_overruns, None)
-        self.assertEqual(interface.rx_frame, None)
-        self.assertEqual(interface.tx_packets, None)
-        self.assertEqual(interface.tx_errors, None)
-        self.assertEqual(interface.tx_dropped, None)
-        self.assertEqual(interface.tx_overruns, None)
-        self.assertEqual(interface.tx_carrier, None)
-        self.assertEqual(interface.tx_collisions, None)
+        self.assertEqual(None, interface.type)
+        self.assertEqual('00:a0:cc:da:da:da', interface.mac_addr)
+        self.assertEqual('192.168.1.3', interface.ipv4_addr)
+        self.assertEqual('192.168.1.255', interface.ipv4_bcast)
+        self.assertEqual('0xffffff00', interface.ipv4_mask)
+
+        _name = 'dc1'
+        self.assertTrue(interfaces.is_available(name=_name))
+        interface = interfaces.get_interface(name=_name)
+        self.assertEqual(None, interface.type)
+        self.assertEqual('00:a0:cc:da:da:db', interface.mac_addr)
+        self.assertEqual('10.0.0.1', interface.ipv4_addr)
+        self.assertEqual('10.0.0.255', interface.ipv4_bcast)
+        self.assertEqual('0xffffff00', interface.ipv4_mask)
+
+        _name = 'lo0'
+        self.assertTrue(interfaces.is_available(name=_name))
+        interface = interfaces.get_interface(name=_name)
+        self.assertEqual(None, interface.type)
+        self.assertEqual(None, interface.mac_addr)
+        self.assertEqual('127.0.0.1', interface.ipv4_addr)
+        self.assertEqual(None, interface.ipv4_bcast)
+        self.assertEqual('0xff000000', interface.ipv4_mask)
+        self.assertEqual(None, interface.ipv6_addr)
+        self.assertEqual(None, interface.ipv6_mask)
+        self.assertEqual(None, interface.ipv6_scope)
+        self.assertEqual('16384', interface.mtu)
+        self.assertEqual(None, interface.rx_packets)
+        self.assertEqual(None, interface.rx_errors)
+        self.assertEqual(None, interface.rx_dropped)
+        self.assertEqual(None, interface.rx_overruns)
+        self.assertEqual(None, interface.rx_frame)
+        self.assertEqual(None, interface.tx_packets)
+        self.assertEqual(None, interface.tx_errors)
+        self.assertEqual(None, interface.tx_dropped)
+        self.assertEqual(None, interface.tx_overruns)
+        self.assertEqual(None, interface.tx_carrier)
+        self.assertEqual(None, interface.tx_collisions)
 
 
 if __name__ == '__main__':

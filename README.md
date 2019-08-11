@@ -87,7 +87,7 @@ List names of all available network interfaces
 
 #### count_interfaces()
 
-List number of all available network interfaces
+Number of all available network interfaces
 ```python
 >>> interfaces.count_interfaces()
 3
@@ -118,6 +118,15 @@ Filter network interfaces by attribute(s)
 >>> interfaces.filter_interfaces(mtu='1500', name='enp2s0')
 ['enp2s0']
 ```
+
+#### is_available()
+
+Is a network interface available
+```python
+>>> interfaces.is_available(name='enp2s0')
+True
+```
+
 
 #### Exceptions 
 
