@@ -6,7 +6,7 @@
 #    File name: ifconfig_parser
 #    Author: threeheadedknight@protonmail.com
 #    Date created: 30.06.2018 17:03
-#    Python Version: 3.6
+#    Python Version: 3.7
 #
 # ======================================================
 import re
@@ -107,7 +107,7 @@ class IfconfigParser(object):
             r"inet6 addr:\s+(?P<ipv6_addr>\S+)/(?P<ipv6_mask>[0-9]+)\s+Scope:(?P<ipv6_scope>Link|Host)",
             re.I)
         re_linux_state = re.compile(
-            r"(?P<state>.*)\s+MTU:(?P<mtu>[0-9]+)\s+Metric:(?P<metric>[0-9]+)", re.I)
+            r"\W+(?P<state>(?:\w+\s)+)(?:\s+)?MTU:(?P<mtu>[0-9]+)\s+Metric:(?P<metric>[0-9]+)", re.I)
         re_linux_rx = re.compile(
             r"RX packets:(?P<rx_packets>[0-9]+)\s+errors:(?P<rx_errors>[0-9]+)\s+dropped:"
             r"(?P<rx_dropped>[0-9]+)\s+overruns:(?P<rx_overruns>[0-9]+)\s+frame:(?P<rx_frame>[0-9]+)",
@@ -122,7 +122,7 @@ class IfconfigParser(object):
 
         # OpenBSD syntax
         re_openbsd_interface = re.compile(
-            r"(?P<name>[a-zA-Z0-9:._-]+):\s+flags=(?P<flags>[0-9]+)<(?P<state>\S+)>\s+mtu\s+(?P<mtu>[0-9]+)",
+            r"(?P<name>[a-zA-Z0-9:._-]+):\s+flags=(?P<flags>[0-9]+)<(?P<state>\S+)?>\s+mtu\s+(?P<mtu>[0-9]+)",
             re.I)
         re_openbsd_ipv4 = re.compile(
             r"inet (?P<ipv4_addr>(?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+netmask\s+"
@@ -130,8 +130,8 @@ class IfconfigParser(object):
             r"(?P<ipv4_bcast>(?:[0-9]{1,3}\.){3}[0-9]{1,3}))?",
             re.I)
         re_openbsd_ipv6 = re.compile(
-            r"inet6\s+(?P<ipv6_addr>\S+)\s+prefixlen\s+(?P<ipv6_mask>[0-9]+)\s+scopeid\s+[0-9]+x[0-9]+<"
-            r"(?P<ipv6_scope>link|host)>",
+            r"inet6\s+(?P<ipv6_addr>\S+)\s+prefixlen\s+(?P<ipv6_mask>[0-9]+)\s+scopeid\s+(?P<ipv6_scope>\w+x\w+)<"
+            r"(?:link|host)>",
             re.I)
         re_openbsd_details = re.compile(
             r"\S+\s+(?:(?P<mac_addr>[0-9A-Fa-f:?]+)\s+)?txqueuelen\s+[0-9]+\s+\((?P<type>\S+\s?\S+)\)", re.I)
@@ -149,7 +149,6 @@ class IfconfigParser(object):
                       re_openbsd_rx_stats, re_openbsd_tx, re_openbsd_tx_stats]
 
         # FreeBSD syntax
-        # TODO: cover all interface attributes
         re_freebsd_interface = re.compile(
             r"(?P<name>[a-zA-Z0-9:._-]+):\s+flags=(?P<flags>[0-9]+)<(?P<state>\S+)>\s+metric\s+"
             r"(?P<metric>[0-9]+)\s+mtu\s+(?P<mtu>[0-9]+)",
@@ -158,8 +157,9 @@ class IfconfigParser(object):
             r"inet (?P<ipv4_addr>(?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+netmask\s+(?P<ipv4_mask>0x\S+)(\s+broadcast\s+"
             r"(?P<ipv4_bcast>(?:[0-9]{1,3}\.){3}[0-9]{1,3}))?",
             re.I)
+        re_freebsd_ipv6 = re.compile(r"\s?inet6\s(?P<ipv6_addr>.*)(?:\%\w+\d+)\sprefixlen\s(?P<ipv6_mask>\d+)(?:\s\w+)?\sscopeid\s(?P<ipv6_scope>\w+x\w+)", re.I)
         re_freebsd_details = re.compile(r"ether\s+(?P<mac_addr>[0-9A-Fa-f:?]+)", re.I)
-        re_freebsd = [re_freebsd_interface, re_freebsd_ipv4, re_freebsd_details]
+        re_freebsd = [re_freebsd_interface, re_freebsd_ipv4, re_freebsd_ipv6, re_freebsd_details]
 
         available_interfaces = dict()
 
@@ -183,9 +183,11 @@ class IfconfigParser(object):
             chunk = source_data[l:r]
             _interface = dict()
             for pattern in re_linux + re_openbsd + re_freebsd:
-                match = re.search(pattern, chunk)
+                match = re.search(pattern, chunk.replace('\t', '\n'))
                 if match:
                     details = match.groupdict()
+                    for k, v in details.items():
+                        if isinstance(v, str): details[k] = v.strip()
                     _interface.update(details)
             if _interface is not None:
                 available_interfaces[_interface['name']] = self.update_interface_details(_interface)

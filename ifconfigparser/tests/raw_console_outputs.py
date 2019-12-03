@@ -6,60 +6,60 @@
 #    File name: test_console_outputs
 #    Author: threeheadedknight@protonmail.com
 #    Date created: 30.06.2018 17:36
-#    Python Version: 3.6
+#    Python Version: 3.7
 #
 # ======================================================
 # https://www.computerhope.com/unix/uifconfi.htm
 SAMPLE_OUTPUT_LINUX_SYNTAX_1 = """
-eth0      Link encap:Ethernet  HWaddr 09:00:12:90:e3:e5  
+eth0      Link encap:Ethernet  HWaddr 09:00:12:90:e3:e5
           inet addr:192.168.1.29 Bcast:192.168.1.255  Mask:255.255.255.0
           inet6 addr: fe80::a00:27ff:fe70:e3f5/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:54071 errors:1 dropped:0 overruns:0 frame:0
           TX packets:48515 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:22009423 (20.9 MiB)  TX bytes:25690847 (24.5 MiB)
-          Interrupt:10 Base address:0xd020 
+          Interrupt:10 Base address:0xd020
 
-lo        Link encap:Local Loopback  
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
           UP LOOPBACK RUNNING  MTU:16436  Metric:1
           RX packets:83 errors:0 dropped:0 overruns:0 frame:0
           TX packets:83 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:7766 (7.5 KiB)  TX bytes:7766 (7.5 KiB)
 
-wlan0     Link encap:Ethernet  HWaddr 58:a2:c2:93:27:36  
+wlan0     Link encap:Ethernet  HWaddr 58:a2:c2:93:27:36
           inet addr:192.168.1.64  Bcast:192.168.2.255  Mask:255.255.255.0
           inet6 addr: fe80::6aa3:c4ff:fe93:4746/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:436968 errors:0 dropped:0 overruns:0 frame:0
           TX packets:364103 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:115886055 (110.5 MiB)  TX bytes:83286188 (79.4 MiB)
 """
 
 # http://www.aboutlinux.info/2006/11/ifconfig-dissected-and-demystified.html
 SAMPLE_OUTPUT_LINUX_SYNTAX_2 = """
-lo        Link encap:Local Loopback  
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
           UP LOOPBACK RUNNING  MTU:16436  Metric:1
           RX packets:8 errors:0 dropped:0 overruns:0 frame:0
           TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:480 (480.0 b)  TX bytes:480 (480.0 b)
 
-p2p1      Link encap:Ethernet  HWaddr 00:1C:C0:AE:B5:E6  
+p2p1      Link encap:Ethernet  HWaddr 00:1C:C0:AE:B5:E6
           inet addr:192.168.0.1  Bcast:192.168.0.255  Mask:255.255.255.0
           inet6 addr: fe80::21c:c0ff:feae:b5e6/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:41620 errors:0 dropped:0 overruns:0 frame:0
           TX packets:40231 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:21601203 (20.6 MiB)  TX bytes:6145876 (5.8 MiB)
-          Interrupt:21 Base address:0xe000 
+          Interrupt:21 Base address:0xe000
 """
 
 # http://linux-ip.net/html/tools-ifconfig.html
@@ -69,16 +69,16 @@ eth0      Link encap:Ethernet  HWaddr 00:80:C8:F8:4A:51
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:190312 errors:0 dropped:0 overruns:0 frame:0
           TX packets:86955 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:30701229 (29.2 Mb)  TX bytes:7878951 (7.5 Mb)
-          Interrupt:9 Base address:0x5000 
+          Interrupt:9 Base address:0x5000
 
-lo        Link encap:Local Loopback  
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           UP LOOPBACK RUNNING  MTU:16436  Metric:1
           RX packets:306 errors:0 dropped:0 overruns:0 frame:0
           TX packets:306 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:29504 (28.8 Kb)  TX bytes:29504 (28.8 Kb)
 """
 
@@ -143,89 +143,89 @@ virbr0    Link encap:Ethernet  HWaddr 3a:bf:4c:fb:90:b6
 
 # http://goinbigdata.com/demystifying-ifconfig-and-network-interfaces-in-linux/
 SAMPLE_OUTPUT_LINUX_SYNTAX_6 = """
-docker0   Link encap:Ethernet  HWaddr 02:42:2d:66:fc:f1  
+docker0   Link encap:Ethernet  HWaddr 02:42:2d:66:fc:f1
           inet addr:172.17.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
           inet6 addr: fe80::42:2dff:fe66:fcf1/64 Scope:Link
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
           RX packets:2 errors:0 dropped:0 overruns:0 frame:0
           TX packets:3 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:152 (152.0 B)  TX bytes:258 (258.0 B)
 
-eth0      Link encap:Ethernet  HWaddr 08:00:27:31:65:b5  
+eth0      Link encap:Ethernet  HWaddr 08:00:27:31:65:b5
           inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
           inet6 addr: fe80::3db9:eaaa:e0ae:6e09/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1089467 errors:0 dropped:0 overruns:0 frame:0
           TX packets:508121 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:903808796 (903.8 MB)  TX bytes:31099448 (31.0 MB)
 
-lo        Link encap:Local Loopback  
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
           UP LOOPBACK RUNNING  MTU:65536  Metric:1
           RX packets:9643 errors:0 dropped:0 overruns:0 frame:0
           TX packets:9643 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1 
+          collisions:0 txqueuelen:1
           RX bytes:719527 (719.5 KB)  TX bytes:719527 (719.5 KB)
 """
 
 # https://ubuntuforums.org/showthread.php?t=2309060
 SAMPLE_OUTPUT_LINUX_SYNTAX_7 = """
-enp11s0   Link encap:Ethernet  HWaddr 78:2b:cb:ce:1d:92  
+enp11s0   Link encap:Ethernet  HWaddr 78:2b:cb:ce:1d:92
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
-          Interrupt:17 
+          Interrupt:17
 
-lo        Link encap:Local Loopback  
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
           UP LOOPBACK RUNNING  MTU:65536  Metric:1
           RX packets:902 errors:0 dropped:0 overruns:0 frame:0
           TX packets:902 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:120802 (120.8 KB)  TX bytes:120802 (120.8 KB)
 
-wlp2s0b1  Link encap:Ethernet  HWaddr 68:a3:c4:2f:07:b0  
+wlp2s0b1  Link encap:Ethernet  HWaddr 68:a3:c4:2f:07:b0
           inet addr:192.168.2.11  Bcast:192.168.2.255  Mask:255.255.255.0
           inet6 addr: fe80::6aa3:c4ff:fe2f:7b0/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:3542 errors:0 dropped:0 overruns:0 frame:0
           TX packets:2860 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:3080782 (3.0 MB)  TX bytes:377587 (377.5 KB)
 """
 
 # https://ubuntuforums.org/showthread.php?t=2309060
 SAMPLE_OUTPUT_LINUX_SYNTAX_8 = """
-eth0      Link encap:Ethernet  HWaddr 78:2b:cb:ce:1d:92  
+eth0      Link encap:Ethernet  HWaddr 78:2b:cb:ce:1d:92
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
-          Interrupt:17 
+          Interrupt:17
 
-lo        Link encap:Local Loopback  
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
           UP LOOPBACK RUNNING  MTU:65536  Metric:1
           RX packets:382 errors:0 dropped:0 overruns:0 frame:0
           TX packets:382 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:84203 (84.2 KB)  TX bytes:84203 (84.2 KB)
 
-wlan0     Link encap:Ethernet  HWaddr 68:a3:c4:2f:07:b0  
+wlan0     Link encap:Ethernet  HWaddr 68:a3:c4:2f:07:b0
           inet addr:192.168.2.11  Bcast:192.168.2.255  Mask:255.255.255.0
           inet6 addr: fe80::6aa3:c4ff:fe2f:7b0/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:242 errors:0 dropped:0 overruns:0 frame:0
           TX packets:256 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:253320 (253.3 KB)  TX bytes:29623 (29.6 KB)
 """
 
@@ -250,7 +250,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
 virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        inet 0.0.0.0  netmask 255.255.255.0  broadcast 0.0.0.0.0
+        inet 0.0.0.0  netmask 255.255.255.0  broadcast 0.0.0.0
         ether 11:11:11:11:11:11  txqueuelen 0  (Ethernet)
         RX packets 0  bytes 0 (0.0 B)
         RX errors 0  dropped 0  overruns 0  frame 0
@@ -341,4 +341,286 @@ lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> metric 0 mtu 16384
         inet6 ::1 prefixlen 128
         inet 127.0.0.1 netmask 0xff000000
         nd6 options=3<PERFORMNUD,ACCEPT_RTADV>
+"""
+
+# https://github.com/KnightWhoSayNi/ifconfig-parser/files/3898413/ifconfig-osx-10.11.6-2.txt
+SAMPLE_OUTPUT_FREEBSD_SYNTAX_4 = """
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
+	options=3<RXCSUM,TXCSUM>
+	inet6 ::1 prefixlen 128
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
+	nd6 options=1<PERFORMNUD>
+gif0: flags=8010<POINTOPOINT,MULTICAST> mtu 1280
+stf0: flags=0<> mtu 1280
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether 68:a8:6d:12:f5:75
+	inet6 fe80::6aa8:6dff:fe12:f575%en0 prefixlen 64 scopeid 0x4
+	inet6 2600:1700:bab0:d40:6aa8:6dff:fe12:f575 prefixlen 64 autoconf
+	inet6 2600:1700:bab0:d40:c0d1:97f7:a613:3ed3 prefixlen 64 autoconf temporary
+	inet 192.168.1.81 netmask 0xffffff00 broadcast 192.168.1.255
+	inet6 2600:1700:bab0:d40::26 prefixlen 64 dynamic
+	nd6 options=1<PERFORMNUD>
+	media: autoselect
+	status: active
+en1: flags=963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX> mtu 1500
+	options=60<TSO4,TSO6>
+	ether b2:00:19:cb:f5:50
+	media: autoselect <full-duplex>
+	status: inactive
+p2p0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 2304
+	ether 0a:a8:6d:12:f5:75
+	media: autoselect
+	status: inactive
+bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=63<RXCSUM,TXCSUM,TSO4,TSO6>
+	ether 6a:a8:6d:21:38:00
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x2
+	member: en1 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 5 priority 0 path cost 0
+	nd6 options=1<PERFORMNUD>
+	media: <unknown type>
+	status: inactive
+"""
+
+# https://github.com/KnightWhoSayNi/ifconfig-parser/files/3898414/ifconfig-osx-10.11.6.txt
+SAMPLE_OUTPUT_FREEBSD_SYNTAX_5 = """
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
+	options=3<RXCSUM,TXCSUM>
+	inet6 ::1 prefixlen 128
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
+	nd6 options=1<PERFORMNUD>
+gif0: flags=8010<POINTOPOINT,MULTICAST> mtu 1280
+stf0: flags=0<> mtu 1280
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether 60:c5:47:0a:ce:0b
+	inet6 fe80::62c5:47ff:fe0a:ce0b%en0 prefixlen 64 scopeid 0x4
+	inet 192.168.1.65 netmask 0xffffff00 broadcast 192.168.1.255
+	inet6 2600:1700:bab0:d40:62c5:47ff:fe0a:ce0b prefixlen 64 autoconf
+	inet6 2600:1700:bab0:d40:ad4b:19b2:2ce5:9a1b prefixlen 64 autoconf temporary
+	inet6 2600:1700:bab0:d40::2b prefixlen 64 dynamic
+	nd6 options=1<PERFORMNUD>
+	media: autoselect
+	status: active
+en1: flags=963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX> mtu 1500
+	options=60<TSO4,TSO6>
+	ether b2:00:14:06:39:21
+	media: autoselect <full-duplex>
+	status: inactive
+p2p0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 2304
+	ether 02:c5:47:0a:ce:0b
+	media: autoselect
+	status: inactive
+bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=63<RXCSUM,TXCSUM,TSO4,TSO6>
+	ether 62:c5:47:a0:f7:10
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x2
+	member: en1 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 5 priority 0 path cost 0
+	nd6 options=1<PERFORMNUD>
+	media: <unknown type>
+	status: inactive
+"""
+
+# https://github.com/KnightWhoSayNi/ifconfig-parser/files/3898415/ifconfig-osx-10.14.6-2.txt
+SAMPLE_OUTPUT_FREEBSD_SYNTAX_6 = """
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
+	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
+	nd6 options=201<PERFORMNUD,DAD>
+gif0: flags=8010<POINTOPOINT,MULTICAST> mtu 1280
+stf0: flags=0<> mtu 1280
+XHC0: flags=0<> mtu 0
+XHC1: flags=0<> mtu 0
+XHC20: flags=0<> mtu 0
+VHC128: flags=0<> mtu 0
+en5: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether ac:de:48:00:10:20
+	inet6 fe80::aede:48ff:fe00:1020%en5 prefixlen 64 scopeid 0x8
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect (100baseTX <full-duplex>)
+	status: active
+ap1: flags=8802<BROADCAST,SIMPLEX,MULTICAST> mtu 1500
+	ether a6:83:e7:2d:63:8e
+	media: autoselect
+	status: inactive
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether a4:83:e7:2d:63:8e
+	inet6 fe80::4dd:cbd7:2743:da63%en0 prefixlen 64 secured scopeid 0xa
+	inet 192.168.1.221 netmask 0xffffff00 broadcast 192.168.1.255
+	inet6 2600:1700:bab0:d40:1874:4566:6499:f3d1 prefixlen 64 autoconf secured
+	inet6 2600:1700:bab0:d40:30d4:c067:a56d:5888 prefixlen 64 deprecated autoconf temporary
+	inet6 2600:1700:bab0:d40:342e:1ac7:8bdb:6c3d prefixlen 64 deprecated autoconf temporary
+	inet6 2600:1700:bab0:d40:fdd1:e943:edd4:5187 prefixlen 64 autoconf temporary
+	inet6 2600:1700:bab0:d40::39 prefixlen 64 dynamic
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+p2p0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 2304
+	ether 06:83:e7:2d:63:8e
+	media: autoselect
+	status: inactive
+awdl0: flags=8943<UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1484
+	ether 7e:05:c1:24:14:ca
+	inet6 fe80::7c05:c1ff:fe24:14ca%awdl0 prefixlen 64 scopeid 0xc
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+en1: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=60<TSO4,TSO6>
+	ether ea:00:fd:08:58:02
+	media: autoselect <full-duplex>
+	status: inactive
+en2: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=60<TSO4,TSO6>
+	ether ea:00:fd:08:58:01
+	media: autoselect <full-duplex>
+	status: inactive
+en3: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=60<TSO4,TSO6>
+	ether ea:00:fd:08:58:06
+	media: autoselect <full-duplex>
+	status: inactive
+en4: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=60<TSO4,TSO6>
+	ether ea:00:fd:08:58:05
+	media: autoselect <full-duplex>
+	status: inactive
+bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=63<RXCSUM,TXCSUM,TSO4,TSO6>
+	ether ea:00:fd:08:58:02
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x2
+	member: en1 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 13 priority 0 path cost 0
+	member: en2 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 14 priority 0 path cost 0
+	member: en3 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 15 priority 0 path cost 0
+	member: en4 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 16 priority 0 path cost 0
+	nd6 options=201<PERFORMNUD,DAD>
+	media: <unknown type>
+	status: inactive
+utun0: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 2000
+	inet6 fe80::7b12:adc2:a089:c4d8%utun0 prefixlen 64 scopeid 0x12
+	nd6 options=201<PERFORMNUD,DAD>
+vmnet1: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether 00:50:56:c0:00:01
+	inet 192.168.101.1 netmask 0xffffff00 broadcast 192.168.101.255
+vmnet8: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether 00:50:56:c0:00:08
+	inet 192.168.71.1 netmask 0xffffff00 broadcast 192.168.71.255
+utun1: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1380
+	inet6 fe80::a08a:46aa:a738:2ea7%utun1 prefixlen 64 scopeid 0x15
+	nd6 options=201<PERFORMNUD,DAD>
+"""
+
+# https://github.com/KnightWhoSayNi/ifconfig-parser/files/3898416/ifconfig-osx-10.14.6.txt
+SAMPLE_OUTPUT_FREEBSD_SYNTAX_7 = """
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
+	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
+	nd6 options=201<PERFORMNUD,DAD>
+gif0: flags=8010<POINTOPOINT,MULTICAST> mtu 1280
+stf0: flags=0<> mtu 1280
+XHC1: flags=0<> mtu 0
+XHC0: flags=0<> mtu 0
+XHC20: flags=0<> mtu 0
+en5: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether ac:de:48:00:13:23
+	inet6 fe80::aede:48ff:fe00:1323%en5 prefixlen 64 scopeid 0x7
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether f0:18:98:03:d9:30
+	inet6 fe80::8b7:1281:7499:b504%en0 prefixlen 64 secured scopeid 0x8
+	inet 192.168.1.72 netmask 0xffffff00 broadcast 192.168.1.255
+	inet6 2600:1700:bab0:d40:bb:9ad:34c5:2e9a prefixlen 64 autoconf secured
+	inet6 2600:1700:bab0:d40:4573:9380:5ecb:ef52 prefixlen 64 autoconf temporary
+	inet6 2600:1700:bab0:d40::24 prefixlen 64 dynamic
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+p2p0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 2304
+	ether 02:18:98:03:f8:49
+	media: autoselect
+	status: inactive
+awdl0: flags=8943<UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1484
+	ether 1e:06:52:da:9b:86
+	inet6 fe80::1c06:52ff:feda:9b86%awdl0 prefixlen 64 scopeid 0xa
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+en1: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=60<TSO4,TSO6>
+	ether 02:00:31:81:83:05
+	media: autoselect <full-duplex>
+	status: inactive
+en2: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=60<TSO4,TSO6>
+	ether 02:00:31:81:94:10
+	media: autoselect <full-duplex>
+	status: inactive
+en3: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=60<TSO4,TSO6>
+	ether 02:00:31:81:94:06
+	media: autoselect <full-duplex>
+	status: inactive
+en4: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=60<TSO4,TSO6>
+	ether 02:00:31:81:94:05
+	media: autoselect <full-duplex>
+	status: inactive
+bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=63<RXCSUM,TXCSUM,TSO4,TSO6>
+	ether 02:00:31:81:94:02
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x2
+	member: en1 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 11 priority 0 path cost 0
+	member: en2 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 12 priority 0 path cost 0
+	member: en3 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 13 priority 0 path cost 0
+	member: en4 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 14 priority 0 path cost 0
+	nd6 options=201<PERFORMNUD,DAD>
+	media: <unknown type>
+	status: inactive
+utun0: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 2000
+	inet6 fe80::cec:23d0:8cf7:c88e%utun0 prefixlen 64 scopeid 0x10
+	nd6 options=201<PERFORMNUD,DAD>
+utun1: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1380
+	inet6 fe80::cf42:647e:9077:7bcb%utun1 prefixlen 64 scopeid 0x11
+	nd6 options=201<PERFORMNUD,DAD>
+utun2: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1380
+	inet6 fe80::f67f:be47:695a:f5b1%utun2 prefixlen 64 scopeid 0x12
+	nd6 options=201<PERFORMNUD,DAD>
+utun3: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1380
+	inet6 fe80::2998:653d:a6da:9ca5%utun3 prefixlen 64 scopeid 0x13
+	nd6 options=201<PERFORMNUD,DAD>
+utun4: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1380
+	inet6 fe80::8e0f:4631:2328:5209%utun4 prefixlen 64 scopeid 0x14
+	nd6 options=201<PERFORMNUD,DAD>
 """

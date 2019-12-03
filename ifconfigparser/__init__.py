@@ -6,12 +6,10 @@
 #    File name: __init__.py
 #    Author: threeheadedknight@protonmail.com
 #    Date created: 30.06.2018 17:00
-#    Python Version: 3.6
+#    Python Version: 3.7
 #
 # ======================================================
-from .ifconfig_parser import IfconfigParser
-
 
 __author__ = "KnightWhoSayNi"
 __email__ = 'threeheadedknight@protonmail.com'
-__version__ = '0.0.1'
+__version__ = '0.0.3'
