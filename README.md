@@ -1,8 +1,8 @@
 # ifconfig-parser
 
-[![Build Status](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser.svg?branch=master)](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/KnightWhoSayNi/ifconfig-parser/blob/master/LICENSE) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ifconfig-parser) ![PyPI](https://img.shields.io/pypi/v/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser)](https://pepy.tech/project/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser/month)](https://pepy.tech/project/ifconfig-parser/month) [![Downloads](https://pepy.tech/badge/ifconfig-parser/week)](https://pepy.tech/project/ifconfig-parser/week) 
+[![Build Status](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser.svg?branch=master)](https://travis-ci.org/KnightWhoSayNi/ifconfig-parser) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/KnightWhoSayNi/ifconfig-parser/blob/master/LICENSE) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ifconfig-parser) ![PyPI](https://img.shields.io/pypi/v/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser)](https://pepy.tech/project/ifconfig-parser) [![Downloads](https://pepy.tech/badge/ifconfig-parser/month)](https://pepy.tech/project/ifconfig-parser/month) [![Downloads](https://pepy.tech/badge/ifconfig-parser/week)](https://pepy.tech/project/ifconfig-parser/week)
 
-Unsophisticated python package for parsing raw output of [ifconfig](https://en.wikipedia.org/wiki/Ifconfig). 
+Unsophisticated python package for parsing raw output of [ifconfig](https://en.wikipedia.org/wiki/Ifconfig).
 
 ## Getting Started
 
@@ -30,12 +30,14 @@ Supported attributes of network interfaces:
 - rx_dropped
 - rx_overruns
 - rx_frame
+- rx_bytes
 - tx_packets
 - tx_errors
 - tx_dropped
 - tx_overruns
 - tx_carrier
 - tx_collisions
+- tx_bytes
 
 ## Usage
 
@@ -46,7 +48,7 @@ Initialization
 
 ```python
 >>> from ifconfigparser import IfconfigParser
->>> 
+>>>
 >>> console_output = """
 enp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 0.0.0.100  netmask 255.255.255.0  broadcast 0.0.0.0
@@ -128,7 +130,7 @@ True
 ```
 
 
-#### Exceptions 
+#### Exceptions
 
 Raise **InterfaceNotFound** in case of missing interface
 ```python

@@ -44,7 +44,8 @@ class TestIfconfigParser(unittest.TestCase):
 
         all_attr = ['name', 'type', 'mac_addr', 'ipv4_addr', 'ipv4_bcast', 'ipv4_mask', 'ipv6_addr', 'ipv6_mask',
         'ipv6_scope', 'state', 'mtu', 'metric', 'rx_packets', 'rx_errors', 'rx_dropped', 'rx_overruns',
-        'rx_frame', 'tx_packets', 'tx_errors', 'tx_dropped', 'tx_overruns', 'tx_carrier', 'tx_collisions']
+        'rx_frame', 'tx_packets', 'tx_errors', 'tx_dropped', 'tx_overruns', 'tx_carrier', 'tx_collisions',
+        'rx_bytes', 'tx_bytes']
 
         for a in all_attr:
             if not attr.get(a):
@@ -77,6 +78,9 @@ class TestIfconfigParser(unittest.TestCase):
         self.assertEqual(attr_target.tx_overruns, attr_ref.tx_overruns)
         self.assertEqual(attr_target.tx_carrier, attr_ref.tx_carrier)
         self.assertEqual(attr_target.tx_collisions, attr_ref.tx_collisions)
+        self.assertEqual(attr_target.metric, attr_ref.metric)
+        self.assertEqual(attr_target.rx_bytes, attr_ref.rx_bytes)
+        self.assertEqual(attr_target.tx_bytes, attr_ref.tx_bytes)
 
     def test_generic(self):
 
@@ -99,6 +103,7 @@ class TestIfconfigParser(unittest.TestCase):
 
         self.assertFalse(interfaces.is_available(name='NONSENSE'))
 
+        # Template
         # _name = ""
         # _ref = {'name': _name, 'type': '', 'mac_addr': '', 'ipv4_addr': '', 'ipv4_bcast': '', 'ipv4_mask': '', 'ipv6_addr': '', 'ipv6_mask': '',
         #         'ipv6_scope': '', 'state': '', 'mtu': '', 'metric': '', 'rx_packets': '', 'rx_errors': '', 'rx_dropped': '', 'rx_overruns': '',
@@ -121,14 +126,15 @@ class TestIfconfigParser(unittest.TestCase):
         'ipv6_scope': 'Link', 'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1',
         'rx_packets': '54071', 'rx_errors': '1', 'rx_dropped': '0', 'rx_overruns': '0',
         'rx_frame': '0', 'tx_packets': '48515', 'tx_errors': '0', 'tx_dropped': '0',
-        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
-
+        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '22009423', 'tx_bytes': '25690847'}
         self.details.append((_name, _ref))
 
         _name = "lo"
         _ref = {'name': _name, 'type': 'Local Loopback', 'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0', 'ipv6_addr': '::1', 'ipv6_mask': '128',
         'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '16436', 'metric': '1', 'rx_packets': '83', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '83', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '83', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '7766', 'tx_bytes': '7766'}
         self.details.append((_name, _ref))
 
         _name = "wlan0"
@@ -136,7 +142,8 @@ class TestIfconfigParser(unittest.TestCase):
         'ipv4_bcast': '192.168.2.255', 'ipv4_mask': '255.255.255.0', 'ipv6_addr': 'fe80::6aa3:c4ff:fe93:4746', 'ipv6_mask': '64',
         'ipv6_scope': 'Link', 'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '436968',
         'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0', 'rx_frame': '0', 'tx_packets': '364103', 'tx_errors': '0',
-        'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '115886055', 'tx_bytes': '83286188'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -151,13 +158,15 @@ class TestIfconfigParser(unittest.TestCase):
         _name = "lo"
         _ref = {'name': _name, 'type': 'Local Loopback', 'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0', 'ipv6_addr': '::1', 'ipv6_mask': '128',
         'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '16436', 'metric': '1', 'rx_packets': '8', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '8', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '8', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '480', 'tx_bytes': '480'}
         self.details.append((_name, _ref))
 
         _name = "p2p1"
         _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '00:1C:C0:AE:B5:E6', 'ipv4_addr': '192.168.0.1', 'ipv4_bcast': '192.168.0.255', 'ipv4_mask': '255.255.255.0', 'ipv6_addr': 'fe80::21c:c0ff:feae:b5e6', 'ipv6_mask': '64',
         'ipv6_scope': 'Link', 'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '41620', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '40231', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '40231', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '21601203', 'tx_bytes': '6145876'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -172,13 +181,15 @@ class TestIfconfigParser(unittest.TestCase):
         _name = "eth0"
         _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '00:80:C8:F8:4A:51', 'ipv4_addr': '192.168.99.35', 'ipv4_bcast': '192.168.99.255', 'ipv4_mask': '255.255.255.0',
         'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '190312', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '86955', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '86955', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '30701229', 'tx_bytes': '7878951'}
         self.details.append((_name, _ref))
 
         _name = "lo"
         _ref = {'name': _name, 'type': 'Local Loopback', 'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0',
         'state': 'UP LOOPBACK RUNNING', 'mtu': '16436', 'metric': '1', 'rx_packets': '306', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '306', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '306', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '29504', 'tx_bytes': '29504'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -193,13 +204,15 @@ class TestIfconfigParser(unittest.TestCase):
         _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '00:0C:29:40:93:9C', 'ipv4_addr': '192.168.154.102',
         'ipv4_bcast': '192.168.154.255', 'ipv4_mask': '255.255.255.0',
         'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '1771', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '359', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '359', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '138184', 'tx_bytes': '49108'}
         self.details.append((_name, _ref))
 
         _name = "lo"
         _ref = {'name': _name, 'type': 'Local Loopback', 'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0', 'ipv6_addr': '::1', 'ipv6_mask': '128',
         'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '16436', 'metric': '1', 'rx_packets': '390', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '390', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '390', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '29204', 'tx_bytes': '29204'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -214,25 +227,29 @@ class TestIfconfigParser(unittest.TestCase):
         _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '00:0c:29:9b:49:bc', 'ipv4_addr': '192.168.134.128', 'ipv4_bcast': '192.168.134.255', 'ipv4_mask': '255.255.255.0',
         'ipv6_addr': 'fe80::20c:29ff:fe9b:49bc', 'ipv6_mask': '64', 'ipv6_scope': 'Link',
         'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '11545', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '6177', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '6177', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '923360', 'tx_bytes': '1712607'}
         self.details.append((_name, _ref))
 
         _name = "eth1"
         _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '00:0c:29:8b:89:bc', 'ipv6_addr': 'fe80::20c:29ff:fe9b:49bc', 'ipv6_mask': '64',
         'ipv6_scope': 'Link', 'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '11545', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-        'rx_frame': '0', 'tx_packets': '6177', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'rx_frame': '0', 'tx_packets': '6177', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '923360', 'tx_bytes': '1712607'}
         self.details.append((_name, _ref))
 
         _name = "lo"
         _ref = {'name': _name, 'type': 'Local Loopback', 'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0', 'ipv6_addr': '::1', 'ipv6_mask': '128',
-                'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '65536', 'metric': '1', 'rx_packets': '0', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-                'rx_frame': '0', 'tx_packets': '0', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '65536', 'metric': '1', 'rx_packets': '0', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '0', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '0', 'tx_bytes': '0'}
         self.details.append((_name, _ref))
 
         _name = "virbr0"
         _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '3a:bf:4c:fb:90:b6', 'ipv4_addr': '192.168.122.1', 'ipv4_bcast': '192.168.122.255', 'ipv4_mask': '255.255.255.0',
-                'state': 'UP BROADCAST MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '0', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-                'rx_frame': '0', 'tx_packets': '0', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'state': 'UP BROADCAST MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '0', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '0', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '0', 'tx_bytes': '0'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -245,20 +262,23 @@ class TestIfconfigParser(unittest.TestCase):
 
         _name = "docker0"
         _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '02:42:2d:66:fc:f1', 'ipv4_addr': '172.17.0.1', 'ipv4_bcast': '0.0.0.0', 'ipv4_mask': '255.255.0.0', 'ipv6_addr': 'fe80::42:2dff:fe66:fcf1', 'ipv6_mask': '64',
-                'ipv6_scope': 'Link', 'state': 'UP BROADCAST MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '2', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-                'rx_frame': '0', 'tx_packets': '3', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'ipv6_scope': 'Link', 'state': 'UP BROADCAST MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '2', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '3', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '152', 'tx_bytes': '258'}
         self.details.append((_name, _ref))
 
         _name = "eth0"
         _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '08:00:27:31:65:b5', 'ipv4_addr': '10.0.2.15', 'ipv4_bcast': '10.0.2.255', 'ipv4_mask': '255.255.255.0', 'ipv6_addr': 'fe80::3db9:eaaa:e0ae:6e09', 'ipv6_mask': '64',
-                'ipv6_scope': 'Link', 'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '1089467', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-                'rx_frame': '0', 'tx_packets': '508121', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'ipv6_scope': 'Link', 'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '1089467', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '508121', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '903808796', 'tx_bytes': '31099448'}
         self.details.append((_name, _ref))
 
         _name = "lo"
         _ref = {'name': _name, 'type': 'Local Loopback', 'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0', 'ipv6_addr': '::1', 'ipv6_mask': '128',
-                'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '65536', 'metric': '1', 'rx_packets': '9643', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
-                'rx_frame': '0', 'tx_packets': '9643', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '65536', 'metric': '1', 'rx_packets': '9643', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '9643', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '719527', 'tx_bytes': '719527'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -269,79 +289,29 @@ class TestIfconfigParser(unittest.TestCase):
 
         self.assertEqual(interfaces.count_interfaces(), 3)
 
-        interface_list = interfaces.list_interfaces()
-        self.assertIn('enp11s0', interface_list)
-        self.assertIn('lo', interface_list)
-        self.assertIn('wlp2s0b1', interface_list)
+        _name = "enp11s0"
+        _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '78:2b:cb:ce:1d:92',
+        'state': 'UP BROADCAST MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '0', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '0', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '0', 'tx_bytes': '0'}
+        self.details.append((_name, _ref))
 
-        _name = 'enp11s0'
-        interface = interfaces.get_interface(name=_name)
-        self.assertEqual(interface.type, 'Ethernet')
-        self.assertEqual(interface.mac_addr, '78:2b:cb:ce:1d:92')
-        self.assertEqual(interface.ipv4_addr, None)
-        self.assertEqual(interface.ipv4_bcast, None)
-        self.assertEqual(interface.ipv4_mask, None)
-        self.assertEqual(interface.ipv6_addr, None)
-        self.assertEqual(interface.ipv6_mask, None)
-        self.assertEqual(interface.ipv6_scope, None)
-        self.assertEqual(interface.mtu, '1500')
-        self.assertEqual(interface.rx_packets, '0')
-        self.assertEqual(interface.rx_errors, '0')
-        self.assertEqual(interface.rx_dropped, '0')
-        self.assertEqual(interface.rx_overruns, '0')
-        self.assertEqual(interface.rx_frame, '0')
-        self.assertEqual(interface.tx_packets, '0')
-        self.assertEqual(interface.tx_errors, '0')
-        self.assertEqual(interface.tx_dropped, '0')
-        self.assertEqual(interface.tx_overruns, '0')
-        self.assertEqual(interface.tx_carrier, '0')
-        self.assertEqual(interface.tx_collisions, '0')
+        _name = "lo"
+        _ref = {'name': _name, 'type': 'Local Loopback', 'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0', 'ipv6_addr': '::1', 'ipv6_mask': '128',
+        'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '65536', 'metric': '1', 'rx_packets': '902', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '902', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '120802', 'tx_bytes': '120802'}
+        self.details.append((_name, _ref))
 
-        _name = 'lo'
-        interface = interfaces.get_interface(name=_name)
-        self.assertEqual(interface.type, 'Local Loopback')
-        self.assertEqual(interface.mac_addr, None)
-        self.assertEqual(interface.ipv4_addr, '127.0.0.1')
-        self.assertEqual(interface.ipv4_bcast, None)
-        self.assertEqual(interface.ipv4_mask, '255.0.0.0')
-        self.assertEqual(interface.ipv6_addr, '::1')
-        self.assertEqual(interface.ipv6_mask, '128')
-        self.assertEqual(interface.ipv6_scope, 'Host')
-        self.assertEqual(interface.mtu, '65536')
-        self.assertEqual(interface.rx_packets, '902')
-        self.assertEqual(interface.rx_errors, '0')
-        self.assertEqual(interface.rx_dropped, '0')
-        self.assertEqual(interface.rx_overruns, '0')
-        self.assertEqual(interface.rx_frame, '0')
-        self.assertEqual(interface.tx_packets, '902')
-        self.assertEqual(interface.tx_errors, '0')
-        self.assertEqual(interface.tx_dropped, '0')
-        self.assertEqual(interface.tx_overruns, '0')
-        self.assertEqual(interface.tx_carrier, '0')
-        self.assertEqual(interface.tx_collisions, '0')
+        _name = "wlp2s0b1"
+        _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '68:a3:c4:2f:07:b0', 'ipv4_addr': '192.168.2.11', 'ipv4_bcast': '192.168.2.255', 'ipv4_mask': '255.255.255.0',
+        'ipv6_addr': 'fe80::6aa3:c4ff:fe2f:7b0', 'ipv6_mask': '64',
+        'ipv6_scope': 'Link', 'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '3542', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '2860', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '3080782', 'tx_bytes': '377587'}
+        self.details.append((_name, _ref))
 
-        _name = 'wlp2s0b1'
-        interface = interfaces.get_interface(name=_name)
-        self.assertEqual(interface.type, 'Ethernet')
-        self.assertEqual(interface.mac_addr, '68:a3:c4:2f:07:b0')
-        self.assertEqual(interface.ipv4_addr, '192.168.2.11')
-        self.assertEqual(interface.ipv4_bcast, '192.168.2.255')
-        self.assertEqual(interface.ipv4_mask, '255.255.255.0')
-        self.assertEqual(interface.ipv6_addr, 'fe80::6aa3:c4ff:fe2f:7b0')
-        self.assertEqual(interface.ipv6_mask, '64')
-        self.assertEqual(interface.ipv6_scope, 'Link')
-        self.assertEqual(interface.mtu, '1500')
-        self.assertEqual(interface.rx_packets, '3542')
-        self.assertEqual(interface.rx_errors, '0')
-        self.assertEqual(interface.rx_dropped, '0')
-        self.assertEqual(interface.rx_overruns, '0')
-        self.assertEqual(interface.rx_frame, '0')
-        self.assertEqual(interface.tx_packets, '2860')
-        self.assertEqual(interface.tx_errors, '0')
-        self.assertEqual(interface.tx_dropped, '0')
-        self.assertEqual(interface.tx_overruns, '0')
-        self.assertEqual(interface.tx_carrier, '0')
-        self.assertEqual(interface.tx_collisions, '0')
+        self.verify(parser=interfaces)
 
     def test_linux_syntax_008(self):
         console_output = SAMPLE_OUTPUT_LINUX_SYNTAX_8
@@ -349,79 +319,29 @@ class TestIfconfigParser(unittest.TestCase):
 
         self.assertEqual(interfaces.count_interfaces(), 3)
 
-        interface_list = interfaces.list_interfaces()
-        self.assertIn('eth0', interface_list)
-        self.assertIn('lo', interface_list)
-        self.assertIn('wlan0', interface_list)
+        _name = "eth0"
+        _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '78:2b:cb:ce:1d:92',
+        'state': 'UP BROADCAST MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '0', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '0', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '0', 'tx_bytes': '0'}
+        self.details.append((_name, _ref))
 
-        _name = 'eth0'
-        interface = interfaces.get_interface(name=_name)
-        self.assertEqual(interface.type, 'Ethernet')
-        self.assertEqual(interface.mac_addr, '78:2b:cb:ce:1d:92')
-        self.assertEqual(interface.ipv4_addr, None)
-        self.assertEqual(interface.ipv4_bcast, None)
-        self.assertEqual(interface.ipv4_mask, None)
-        self.assertEqual(interface.ipv6_addr, None)
-        self.assertEqual(interface.ipv6_mask, None)
-        self.assertEqual(interface.ipv6_scope, None)
-        self.assertEqual(interface.mtu, '1500')
-        self.assertEqual(interface.rx_packets, '0')
-        self.assertEqual(interface.rx_errors, '0')
-        self.assertEqual(interface.rx_dropped, '0')
-        self.assertEqual(interface.rx_overruns, '0')
-        self.assertEqual(interface.rx_frame, '0')
-        self.assertEqual(interface.tx_packets, '0')
-        self.assertEqual(interface.tx_errors, '0')
-        self.assertEqual(interface.tx_dropped, '0')
-        self.assertEqual(interface.tx_overruns, '0')
-        self.assertEqual(interface.tx_carrier, '0')
-        self.assertEqual(interface.tx_collisions, '0')
+        _name = "lo"
+        _ref = {'name': _name, 'type': 'Local Loopback', 'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0', 'ipv6_addr': '::1', 'ipv6_mask': '128',
+        'ipv6_scope': 'Host', 'state': 'UP LOOPBACK RUNNING', 'mtu': '65536', 'metric': '1', 'rx_packets': '382', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '382', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '84203', 'tx_bytes': '84203'}
+        self.details.append((_name, _ref))
 
-        _name = 'lo'
-        interface = interfaces.get_interface(name=_name)
-        self.assertEqual(interface.type, 'Local Loopback')
-        self.assertEqual(interface.mac_addr, None)
-        self.assertEqual(interface.ipv4_addr, '127.0.0.1')
-        self.assertEqual(interface.ipv4_bcast, None)
-        self.assertEqual(interface.ipv4_mask, '255.0.0.0')
-        self.assertEqual(interface.ipv6_addr, '::1')
-        self.assertEqual(interface.ipv6_mask, '128')
-        self.assertEqual(interface.ipv6_scope, 'Host')
-        self.assertEqual(interface.mtu, '65536')
-        self.assertEqual(interface.rx_packets, '382')
-        self.assertEqual(interface.rx_errors, '0')
-        self.assertEqual(interface.rx_dropped, '0')
-        self.assertEqual(interface.rx_overruns, '0')
-        self.assertEqual(interface.rx_frame, '0')
-        self.assertEqual(interface.tx_packets, '382')
-        self.assertEqual(interface.tx_errors, '0')
-        self.assertEqual(interface.tx_dropped, '0')
-        self.assertEqual(interface.tx_overruns, '0')
-        self.assertEqual(interface.tx_carrier, '0')
-        self.assertEqual(interface.tx_collisions, '0')
+        _name = "wlan0"
+        _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '68:a3:c4:2f:07:b0', 'ipv4_addr': '192.168.2.11', 'ipv4_bcast': '192.168.2.255', 'ipv4_mask': '255.255.255.0',
+        'ipv6_addr': 'fe80::6aa3:c4ff:fe2f:7b0', 'ipv6_mask': '64',
+        'ipv6_scope': 'Link', 'state': 'UP BROADCAST RUNNING MULTICAST', 'mtu': '1500', 'metric': '1', 'rx_packets': '242', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '256', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '253320', 'tx_bytes': '29623'}
+        self.details.append((_name, _ref))
 
-        _name = 'wlan0'
-        interface = interfaces.get_interface(name=_name)
-        self.assertEqual(interface.type, 'Ethernet')
-        self.assertEqual(interface.mac_addr, '68:a3:c4:2f:07:b0')
-        self.assertEqual(interface.ipv4_addr, '192.168.2.11')
-        self.assertEqual(interface.ipv4_bcast, '192.168.2.255')
-        self.assertEqual(interface.ipv4_mask, '255.255.255.0')
-        self.assertEqual(interface.ipv6_addr, 'fe80::6aa3:c4ff:fe2f:7b0')
-        self.assertEqual(interface.ipv6_mask, '64')
-        self.assertEqual(interface.ipv6_scope, 'Link')
-        self.assertEqual(interface.mtu, '1500')
-        self.assertEqual(interface.rx_packets, '242')
-        self.assertEqual(interface.rx_errors, '0')
-        self.assertEqual(interface.rx_dropped, '0')
-        self.assertEqual(interface.rx_overruns, '0')
-        self.assertEqual(interface.rx_frame, '0')
-        self.assertEqual(interface.tx_packets, '256')
-        self.assertEqual(interface.tx_errors, '0')
-        self.assertEqual(interface.tx_dropped, '0')
-        self.assertEqual(interface.tx_overruns, '0')
-        self.assertEqual(interface.tx_carrier, '0')
-        self.assertEqual(interface.tx_collisions, '0')
+        self.verify(parser=interfaces)
 
     def test_openbsd_syntax_001(self):
         console_output = SAMPLE_OUTPUT_OPENBSD_SYNTAX_1
@@ -436,7 +356,8 @@ class TestIfconfigParser(unittest.TestCase):
         'ipv6_addr': 'aaaa::aaaa:aaaa:aaaa:aaaa', 'ipv6_mask': '64', 'ipv6_scope': '0x20',
         'type': 'Ethernet', 'rx_packets': '64219', 'rx_errors': '0', 'rx_dropped': '0',
         'rx_overruns': '0', 'rx_frame': '0', 'tx_packets': '37986', 'tx_errors': '0',
-        'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '82340039', 'tx_bytes': '4117999'}
         self.details.append((_name, _ref))
 
         _name = "lo"
@@ -445,7 +366,8 @@ class TestIfconfigParser(unittest.TestCase):
         'ipv6_mask': '128', 'ipv6_scope': '0x10', 'type': 'Local Loopback',
         'rx_packets': '12', 'rx_errors': '0', 'rx_dropped': '0',
         'rx_overruns': '0', 'rx_frame': '0', 'tx_packets': '12', 'tx_errors': '0',
-        'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'tx_dropped': '0', 'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0',
+        'rx_bytes': '1596', 'tx_bytes': '1596'}
         self.details.append((_name, _ref))
 
         _name = "virbr0"
@@ -454,7 +376,7 @@ class TestIfconfigParser(unittest.TestCase):
         'mac_addr': '11:11:11:11:11:11', 'type': 'Ethernet', 'rx_packets': '0',
         'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0', 'rx_frame': '0',
         'tx_packets': '0', 'tx_errors': '0', 'tx_dropped': '0', 'tx_overruns': '0',
-        'tx_carrier': '0', 'tx_collisions': '0'}
+        'tx_carrier': '0', 'tx_collisions': '0', 'rx_bytes': '0', 'tx_bytes': '0'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -472,7 +394,7 @@ class TestIfconfigParser(unittest.TestCase):
         'ipv6_scope': '0x20', 'state': 'UP,BROADCAST,RUNNING,MULTICAST', 'mtu': '1500',
         'rx_packets': '8861190', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
         'rx_frame': '0', 'tx_packets': '8562901', 'tx_errors': '0', 'tx_dropped': '0',
-        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0', 'rx_bytes': '4193527512', 'tx_bytes': '3997697400'}
         self.details.append((_name, _ref))
 
         _name = 'eth0:1'
@@ -487,7 +409,75 @@ class TestIfconfigParser(unittest.TestCase):
         'ipv6_scope': '0x10', 'state': 'UP,LOOPBACK,RUNNING', 'mtu': '65536',
         'rx_packets': '2988597', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
         'rx_frame': '0', 'tx_packets': '2988597', 'tx_errors': '0', 'tx_dropped': '0',
-        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0'}
+        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0', 'rx_bytes': '2376311697', 'tx_bytes': '2376311697'}
+        self.details.append((_name, _ref))
+
+        self.verify(parser=interfaces)
+
+    def test_openbsd_syntax_003(self):
+
+        console_output = SAMPLE_OUTPUT_OPENBSD_SYNTAX_3
+        interfaces = IfconfigParser(console_output=console_output)
+
+        self.assertEqual(interfaces.count_interfaces(), 3)
+
+        _name = "docker0"
+        _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '02:42:1a:0a:77:e4',
+        'ipv4_addr': '172.17.0.1', 'ipv4_bcast': '0.0.0.0', 'ipv4_mask': '255.255.0.0',
+        'state': 'UP,BROADCAST,MULTICAST', 'mtu': '1500',
+        'rx_packets': '0', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '0', 'tx_errors': '0', 'tx_dropped': '0',
+        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0', 'rx_bytes': '0', 'tx_bytes': '0'}
+        self.details.append((_name, _ref))
+
+        _name = "ens33"
+        _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '00:0c:29:3b:58:0e',
+        'ipv4_addr': '192.168.71.138', 'ipv4_bcast': '192.168.71.255', 'ipv4_mask': '255.255.255.0',
+        'ipv6_addr': 'fe80::c1cb:715d:bc3e:b8a0', 'ipv6_mask': '64',
+        'ipv6_scope': '0x20', 'state': 'UP,BROADCAST,RUNNING,MULTICAST', 'mtu': '1500',
+        'rx_packets': '62408', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '25974', 'tx_errors': '0', 'tx_dropped': '0',
+        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0', 'rx_bytes': '23770378', 'tx_bytes': '3523483'}
+        self.details.append((_name, _ref))
+
+        _name = "lo"
+        _ref = {'name': _name, 'type': 'Local Loopback',
+        'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0',
+        'ipv6_addr': '::1', 'ipv6_mask': '128',
+        'ipv6_scope': '0x10', 'state': 'UP,LOOPBACK,RUNNING', 'mtu': '65536',
+        'rx_packets': '37068', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '37068', 'tx_errors': '0', 'tx_dropped': '0',
+        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0', 'rx_bytes': '14181021', 'tx_bytes': '14181021'}
+        self.details.append((_name, _ref))
+
+        self.verify(parser=interfaces)
+
+
+    def test_openbsd_syntax_004(self):
+
+        console_output = SAMPLE_OUTPUT_OPENBSD_SYNTAX_4
+        interfaces = IfconfigParser(console_output=console_output)
+
+        self.assertEqual(interfaces.count_interfaces(), 2)
+
+        _name = "ens33"
+        _ref = {'name': _name, 'type': 'Ethernet', 'mac_addr': '00:0c:29:99:45:17',
+        'ipv4_addr': '192.168.71.131', 'ipv4_bcast': '192.168.71.255', 'ipv4_mask': '255.255.255.0',
+        'ipv6_addr': 'fe80::20c:29ff:fe99:4517', 'ipv6_mask': '64',
+        'ipv6_scope': '0x20', 'state': 'UP,BROADCAST,RUNNING,MULTICAST', 'mtu': '1500',
+        'rx_packets': '35444', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '9940', 'tx_errors': '0', 'tx_dropped': '0',
+        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0', 'rx_bytes': '38714337', 'tx_bytes': '995718'}
+        self.details.append((_name, _ref))
+
+        _name = "lo"
+        _ref = {'name': _name, 'type': 'Local Loopback',
+        'ipv4_addr': '127.0.0.1', 'ipv4_mask': '255.0.0.0',
+        'ipv6_addr': '::1', 'ipv6_mask': '128',
+        'ipv6_scope': '0x10', 'state': 'UP,LOOPBACK,RUNNING', 'mtu': '65536',
+        'rx_packets': '331', 'rx_errors': '0', 'rx_dropped': '0', 'rx_overruns': '0',
+        'rx_frame': '0', 'tx_packets': '331', 'tx_errors': '0', 'tx_dropped': '0',
+        'tx_overruns': '0', 'tx_carrier': '0', 'tx_collisions': '0', 'rx_bytes': '29530', 'tx_bytes': '29530'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -520,23 +510,23 @@ class TestIfconfigParser(unittest.TestCase):
 
         _name = "re0"
         _ref = {'name': _name, 'state': 'BROADCAST,SIMPLEX,MULTICAST', 'mtu': '1500',
-        'mac_addr': 'b8:97:5a:23:26:32'}
+        'mac_addr': 'b8:97:5a:23:26:32', 'metric': '0'}
         self.details.append((_name, _ref))
 
         _name = "re1"
         _ref = {'name': _name, 'state': 'UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST',
         'mtu': '1500', 'mac_addr': '00:14:d1:2b:9c:b5', 'ipv4_addr': '192.168.0.104',
-        'ipv4_mask': '0xffffffff', 'ipv4_bcast': '192.168.0.104'}
+        'ipv4_mask': '0xffffffff', 'ipv4_bcast': '192.168.0.104', 'metric': '0'}
         self.details.append((_name, _ref))
 
         _name = "lo0"
         _ref = {'name': _name, 'state': 'UP,LOOPBACK,RUNNING,MULTICAST', 'mtu': '16384',
-        'ipv4_addr': '127.0.0.1', 'ipv4_mask': '0xff000000'}
+        'ipv4_addr': '127.0.0.1', 'ipv4_mask': '0xff000000', 'metric': '0'}
         self.details.append((_name, _ref))
 
         _name = "lo1"
         _ref = {'name': _name, 'state': 'UP,LOOPBACK,RUNNING,MULTICAST', 'mtu': '16384',
-        'ipv4_addr': '127.0.0.1', 'ipv4_mask': '0xffffffff'}
+        'ipv4_addr': '127.0.0.1', 'ipv4_mask': '0xffffffff', 'metric': '0'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)
@@ -549,19 +539,19 @@ class TestIfconfigParser(unittest.TestCase):
 
         _name = "dc0"
         _ref = {'name': _name, 'state': 'UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST', 'mtu': '1500', 'ipv4_addr': '192.168.1.3',
-        'ipv4_mask': '0xffffff00', 'ipv4_bcast': '192.168.1.255', 'mac_addr': '00:a0:cc:da:da:da'}
+        'ipv4_mask': '0xffffff00', 'ipv4_bcast': '192.168.1.255', 'mac_addr': '00:a0:cc:da:da:da', 'metric': '0'}
         self.details.append((_name, _ref))
 
         _name = 'dc1'
         _ref = {'name': _name, 'state': 'UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST', 'mtu': '1500',
         'ipv4_addr': '10.0.0.1', 'ipv4_mask': '0xffffff00', 'ipv4_bcast': '10.0.0.255',
-        'mac_addr': '00:a0:cc:da:da:db'}
+        'mac_addr': '00:a0:cc:da:da:db', 'metric': '0'}
         self.details.append((_name, _ref))
 
         _name = 'lo0'
         _ref = {'name': _name, 'state': 'UP,LOOPBACK,RUNNING,MULTICAST', 'mtu': '16384',
         'ipv4_addr': '127.0.0.1', 'ipv4_mask': '0xff000000', 'ipv6_addr': 'fe80::1',
-        'ipv6_mask': '64', 'ipv6_scope': '0x4'}
+        'ipv6_mask': '64', 'ipv6_scope': '0x4', 'metric': '0'}
         self.details.append((_name, _ref))
 
         self.verify(parser=interfaces)

@@ -284,6 +284,56 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 """
 
+# https://github.com/KnightWhoSayNi/ifconfig-parser/files/3898060/ifconfig-centos.txt
+SAMPLE_OUTPUT_OPENBSD_SYNTAX_3 = """
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 0.0.0.0
+        ether 02:42:1a:0a:77:e4  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.71.138  netmask 255.255.255.0  broadcast 192.168.71.255
+        inet6 fe80::c1cb:715d:bc3e:b8a0  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:3b:58:0e  txqueuelen 1000  (Ethernet)
+        RX packets 62408  bytes 23770378 (22.6 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 25974  bytes 3523483 (3.3 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 37068  bytes 14181021 (13.5 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 37068  bytes 14181021 (13.5 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+"""
+
+# https://github.com/KnightWhoSayNi/ifconfig-parser/files/3898061/ifconfig-ubuntu.txt
+SAMPLE_OUTPUT_OPENBSD_SYNTAX_4 = """
+ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.71.131  netmask 255.255.255.0  broadcast 192.168.71.255
+        inet6 fe80::20c:29ff:fe99:4517  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:99:45:17  txqueuelen 1000  (Ethernet)
+        RX packets 35444  bytes 38714337 (38.7 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 9940  bytes 995718 (995.7 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 331  bytes 29530 (29.5 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 331  bytes 29530 (29.5 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+"""
+
 # https://www.freebsd.org/doc/en_US.ISO8859-1/articles/linux-users/network.html
 SAMPLE_OUTPUT_FREEBSD_SYNTAX_1 = """
 em0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500

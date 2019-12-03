@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='ifconfig-parser',
-    version='0.0.3',
+    version='0.0.5',
     url='https://github.com/KnightWhoSayNi/ifconfig-parser',
     author='KnightWhoSayNi',
     author_email='threeheadedknight@protonmail.com',

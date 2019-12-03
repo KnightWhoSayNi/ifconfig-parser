@@ -16,7 +16,8 @@ from collections import namedtuple
 class IfconfigParser(object):
     attributes = ['name', 'type', 'mac_addr', 'ipv4_addr', 'ipv4_bcast', 'ipv4_mask', 'ipv6_addr', 'ipv6_mask',
                   'ipv6_scope', 'state', 'mtu', 'metric', 'rx_packets', 'rx_errors', 'rx_dropped', 'rx_overruns',
-                  'rx_frame', 'tx_packets', 'tx_errors', 'tx_dropped', 'tx_overruns', 'tx_carrier', 'tx_collisions']
+                  'rx_frame', 'tx_packets', 'tx_errors', 'tx_dropped', 'tx_overruns', 'tx_carrier', 'tx_collisions',
+                  'rx_bytes', 'tx_bytes']
 
     def __init__(self, console_output):
         """
@@ -116,9 +117,10 @@ class IfconfigParser(object):
             r"TX packets:(?P<tx_packets>[0-9]+)\s+errors:(?P<tx_errors>[0-9]+)\s+dropped:"
             r"(?P<tx_dropped>[0-9]+)\s+overruns:(?P<tx_overruns>[0-9]+)\s+carrier:(?P<tx_carrier>[0-9]+)",
             re.I)
+        re_linux_bytes = re.compile(r"\W+RX bytes:(?P<rx_bytes>\d+)\s+\(.*\)\s+TX bytes:(?P<tx_bytes>\d+)\s+\(.*\)", re.I)
         re_linux_tx_stats = re.compile(r"collisions:(?P<tx_collisions>[0-9]+)\s+txqueuelen:[0-9]+", re.I)
         re_linux = [re_linux_interface, re_linux_ipv4, re_linux_ipv6, re_linux_state, re_linux_rx, re_linux_tx,
-                    re_linux_tx_stats]
+                    re_linux_bytes, re_linux_tx_stats]
 
         # OpenBSD syntax
         re_openbsd_interface = re.compile(
@@ -135,12 +137,12 @@ class IfconfigParser(object):
             re.I)
         re_openbsd_details = re.compile(
             r"\S+\s+(?:(?P<mac_addr>[0-9A-Fa-f:?]+)\s+)?txqueuelen\s+[0-9]+\s+\((?P<type>\S+\s?\S+)\)", re.I)
-        re_openbsd_rx = re.compile(r"RX packets (?P<rx_packets>[0-9]+)\s+bytes.*", re.I)
+        re_openbsd_rx = re.compile(r"RX packets (?P<rx_packets>[0-9]+)\s+bytes\s+(?P<rx_bytes>\d+)\s+.*", re.I)
         re_openbsd_rx_stats = re.compile(
             r"RX errors (?P<rx_errors>[0-9]+)\s+dropped\s+(?P<rx_dropped>[0-9]+)\s+overruns\s+"
             r"(?P<rx_overruns>[0-9]+)\s+frame\s+(?P<rx_frame>[0-9]+)",
             re.I)
-        re_openbsd_tx = re.compile(r"TX packets (?P<tx_packets>[0-9]+)\s+bytes.*", re.I)
+        re_openbsd_tx = re.compile(r"TX packets (?P<tx_packets>[0-9]+)\s+bytes\s+(?P<tx_bytes>\d+)\s+.*", re.I)
         re_openbsd_tx_stats = re.compile(
             r"TX errors (?P<tx_errors>[0-9]+)\s+dropped\s+(?P<tx_dropped>[0-9]+)\s+overruns\s+"
             r"(?P<tx_overruns>[0-9]+)\s+carrier\s+(?P<tx_carrier>[0-9]+)\s+collisions\s+(?P<tx_collisions>[0-9]+)",
