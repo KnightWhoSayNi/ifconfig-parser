@@ -9,6 +9,7 @@
 #    Python Version: 3.7
 #
 # ======================================================
+from .ifconfig_parser import IfconfigParser
 
 __author__ = "KnightWhoSayNi"
 __email__ = 'threeheadedknight@protonmail.com'
